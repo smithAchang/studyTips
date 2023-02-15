@@ -1,8 +1,8 @@
 # 修改记录
 
-版本号    |日期            | 更改理由  
+版本号    |日期             | 更改理由  
 ----------|----------------|----------------
-V1.0      | 2023-03-15     | MD化    
+V1.0      | 2022-03-15     | MD化    
 
 
 
@@ -76,7 +76,10 @@ docker run -it --rm -h devtoolsetVersion -w /usegccversion -v $PWD:/usegccversio
 
 **正例**
 ```c
-for(unsigned int i = 0; i < MAX; ++i) { ... }
+for(unsigned int i = 0; i < MAX; ++i) 
+{ 
+  ... 
+}
 ```
 
 
@@ -179,7 +182,7 @@ void main(void)
 }
 ```
 
-> {}分割有助于人眼分辨，而不是机器可以正确处理。在后期if分支修改时，不容易引起维护上的问题。
+> { }分割有助于人眼分辨，而不是机器可以正确处理。在后期if分支修改时，不容易引起维护上的问题。
 
 ### 用const关键词修饰栈变量和函数入参指针参数
 
@@ -576,7 +579,7 @@ void f()
 unsigned char bStartIndex  = 12;
 unsigned char bEndIndex    = 36;
 
-if((unsigned char )(bEndIndex  -  bStartIndex  ) >  MAX_CAPACITY)
+if((unsigned char )(bEndIndex  -  bStartIndex) >  MAX_CAPACITY)
 {
   exception_log(...);
   return FALSE;
@@ -1006,7 +1009,7 @@ perf record -g -p ${pid}  [-o  </path/to/output_perfdata_file>]
 ```
 
 如果不指定-o 输出文件参数，将默认输出到perf.data文件中。  
-如果想形成多份不同的输出文件，易于后期比较，可以指定-o参数，设定不同的输出文件名字，例如，a.perf.data 。  
+如果想形成多份不同的输出文件，易于后期比较，可以指定-o参数，设定不同的输出文件名字，例如，a.perf.data。  
 补充，perf支持工具级不同性能采集数据之间的diff差异法分析。
 
 ### perf report
@@ -1016,7 +1019,7 @@ perf  report  [-i </path/to/perfdata_file>]
 ```
 
 >  + 如果不指定性能统计分析数据，则默认寻找perf.data文件，即perf  record默认输出的文件
-   + 报告应关注两列均是红色的警醒
+>  + 报告应关注两列均是红色的警醒
 
 ### perf archive脱机分析
 
