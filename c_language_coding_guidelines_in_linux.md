@@ -226,7 +226,6 @@ void main(void)
 
 **正例**
 ```c
-// system api
 if(likely(conditiontest))
 {
  //most hit code
