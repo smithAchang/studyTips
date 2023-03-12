@@ -449,7 +449,7 @@ base                rd_ptr            wr_ptr                         capacity
   wr_ptr += sizeof(extended_suffix_info);
   
   // so can avoid the memory copy if adding extended info
-  sock_send(base + rd_ptr, wr_ptr - rd_ptr)
+  sock_send(base + rd_ptr, wr_ptr - rd_ptr);
 ```
 
 > 通过预留编解码缓冲区前后缀空间，可以在收发外部网络报文后，再次封装或加入扩展时，避免内存拷贝
