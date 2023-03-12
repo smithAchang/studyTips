@@ -1,0 +1,13 @@
+[Unit]
+Description=CentOS7VM
+After=network.target virtualbox.service
+
+[Service]
+Type=forking
+User=aixinlover
+RemainAfterExit=yes
+ExecStart=/bin/bash VBoxManage startvm   "CentOS7" --type headless
+ExecStop=/bin/bash  VBoxManage controlvm "CentOS7" poweroff
+
+[Install]
+WantedBy=multi-user.target
