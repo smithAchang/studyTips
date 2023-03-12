@@ -360,6 +360,100 @@ typedef struct
 
 ## 编码技巧
 
+### 使用零长度数组作为类TLV结构体成员
+
+**正例**
+```c
+// can be used as base pointer
+struct A
+{
+  unsigned int type;
+  unsigned int len;
+  
+  unsigned char data[0];
+};
+
+struct B
+{
+  struct A head;
+  int i;
+  int j;
+  int k;
+};
+
+struct C
+{
+  struct A head;
+  int h;
+  int m;
+  int n;
+};
+
+struct Msgs
+{
+  union
+  {
+    struct A a;
+    struct B b;
+    struct C c;
+  };
+};
+
+...
+
+unsigned char encodeBuf[2048];
+struct A *a = (struct A *)encodeBuf;
+
+...
+
+memcpy(a->data, src, copyLen);
+
+...
+
+struct B *b = (struct B *)encodeBuf;
+
+...
+
+memcpy(b->head.data, src, copyLen);
+
+```
+
+> 适用于广泛的TLV内存操作中，避免在运行期动态计算指针偏移，将在编译期确定
+
+#### 网络收发报文缓冲区预留前缀后缀空间的最佳实践
+
+**正例**
+```
+----------------------------------------------------------------------
+  ... prefix space  | | | | | | | | | | suffix space ...           
+----------------------------------------------------------------------
+^                   ^                 ^                              ^
+|                   |                 |                              |
+base                rd_ptr            wr_ptr                         capacity
+```
+
+```c
+  unsigned char base[MORE_BIGGER_THAN_PKT_SIZE];
+  // reserve prefix space
+  rd_ptr = wr_ptr = prefix_offset;
+  ...
+     
+  nsize = sock_recv(base + wr_ptr, capacity - prefix_offset);
+  wr_ptr += nsize;
+  
+  rd_ptr -= sizeof(extended_prefix_info);
+  add_some_extended_prefix_info(base + rd_ptr);
+  
+  
+  add_some_extended_suffix_info(base + wr_ptr);
+  wr_ptr += sizeof(extended_suffix_info);
+  
+  // so can avoid the memory copy if adding extended info
+  sock_send(base + rd_ptr, wr_ptr - rd_ptr);
+```
+
+> 通过预留编解码缓冲区前后缀空间，可以在收发外部网络报文后，再次封装或加入扩展时，避免内存拷贝
+
 ### 使用空{}清零初始化结构和数组栈变量
 
 **正例**
