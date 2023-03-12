@@ -22,8 +22,6 @@ int main(void)
     printf("\ncreate sock errno: %d -> %s", errno, szErrno);
     return -1;
   }
-
-
   printf("\ncreate sock successfully, got sock fd: %d", tSock);
 
   
@@ -33,33 +31,30 @@ int main(void)
   tSockAddr.sin_port   = htons(12701);
 
   int rc = bind(tSock, (struct sockaddr*)&tSockAddr, sizeof(tSockAddr));
-
-
   if(rc < 0)
   {
     strerror_r(errno, szErrno, sizeof(szErrno));	  
     printf("\nbind errno: %d -> %s", errno, szErrno);
     return -1;
   }
-
-
   printf("\nbind successfully !");
 
   unsigned int bufSize = 1024*1024*1024;
-
-
   rc =  setsockopt(tSock, SOL_SOCKET, SO_RCVBUF, (const void*)&bufSize, sizeof(bufSize));
-
   printf("\nsetsockopt rc: %d", rc);
 
   unsigned int optval = 0;
-  /*optlen must as in & out parameter*/
-  socklen_t  optlen   = sizeof(optval);
-
+  /*optlen must be as in & out parameter*/
+  socklen_t  optlen;
   rc = getsockopt(tSock, SOL_SOCKET, SO_RCVBUF, (void*)&optval, &optlen);
+  printf("\ngetsockopt without providing optlen value. rc: %d, has set bufsize: %u, optlen: %u", rc, optval, optlen);
 
-  printf("\ngetsockopt rc: %d, has set bufsize: %u, optlen: %u\n", rc, optval, optlen);
-
+  //compare at CentOS7 env 
+  optlen = sizeof(optval);
+  rc = getsockopt(tSock, SOL_SOCKET, SO_RCVBUF, (void*)&optval, &optlen);
+  printf("\ncompare getsockopt rc: %d, has set bufsize: %u, optlen: %u", rc, optval, optlen);
+ 
+  printf("\n"); 
   close(tSock);
 
   return 0;
