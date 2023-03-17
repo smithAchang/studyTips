@@ -7,53 +7,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 
-
-typedef struct _IP_HEADER_t 
-{
- uint8_t cVersionAndHeaderLen;//版本信息(前4位)，头长度(后4位)
- uint8_t cTypeOfService;      // 服务类型8位
- uint16_t sTotalLenOfPacket;    //数据包长度
- uint16_t sPacketID;      //数据包标识
- uint16_t sSliceinfo;       //分片使用
- uint8_t cTTL;       //存活时间
- uint8_t cTypeOfProtocol;    //协议类型
- uint16_t sCheckSum;      //校验和
- uint32_t uiSourIp;    //源ip
- uint32_t uiDestIp;    //目的ip
-} __attribute__((packed)) IP_HEADER_t, *PIP_HEADER_t ;
-
-typedef struct _IPv6_HEADER_t 
-{
- uint8_t abVTF[4];//版本信息 traffic flow label
- 
- uint16_t sPayloadLen; //数据包长度
- uint8_t  bNextHeader; //数据包标识
- uint8_t  bHopLimit; // max hop limit
-
- union 
- {
-    uint8_t abSrcAddr[16];
-    u_int32_t ai32SrcAddr[4];
-    u_int64_t ai64SrcAddr[2];
- };
-
- union 
- {
-    uint8_t abDstAddr[16];
-    u_int32_t ai32DstAddr[4];
-    u_int64_t ai64DstAddr[2];
- };
- 
-} __attribute__((packed)) IPv6_HEADER_t, *PIPv6_HEADER_t ;
-
-typedef struct _UDP_HEADER_t {
-  uint16_t u16SrcPort ;   // 源端口号16bit
-  uint16_t u16DstPort ;   // 目的端口号16bit
-  uint16_t u16Length ;   // 数据包长度16bit
-  uint16_t u16CheckSum ;   // 校验和16bit
-} __attribute__((packed)) UDP_HEADER_t, *PUDP_HEADER_t ;
-
-
+#include "header.h"
 
 
 int main(int argc , char* argv[])
@@ -78,7 +32,7 @@ int main(int argc , char* argv[])
   inet_pton(PF_INET6, "FEC0:2021::192.168.31.1", &from.sin6_addr);
   inet_pton(PF_INET6, "FEC0:2021::192.168.31.2", &to.sin6_addr);
 
-  if(argc >1 )
+  if(argc > 1 )
   {
     if(argc < 3)
     {
@@ -100,14 +54,17 @@ int main(int argc , char* argv[])
   int rc = bind(tRawUDPSock, (struct sockaddr*)&from, sizeof(from));
   if(rc < 0)
   {
-    strerror_r(errno, szErrno, sizeof(szErrno));	  
-    printf("bind errno: %d -> %s\n", errno, szErrno);
+    char    szToAddrBuf[64] = {};
+    inet_ntop(AF_INET6, &from.sin6_addr, szToAddrBuf, sizeof(szToAddrBuf));
+    strerror_r(errno, szErrno, sizeof(szErrno));    
+    printf("bind addr: %s , errno: %d -> %s\n", szToAddrBuf, errno, szErrno);
+
     close(tRawUDPSock);
     return -1;
   }
   printf("bind successfully !\n");
 
-  uint8_t abPktInfo[4096];
+  uint8_t abPktInfo[4096] = {};
   uint16_t  u16ContentLen = 2049;
   from.sin6_port = 0;
   to.sin6_port   = 0;
@@ -129,9 +86,9 @@ int main(int argc , char* argv[])
   ptUdpHdr->u16Length    = htons(sizeof(UDP_HEADER_t) + u16ContentLen);   
   ptUdpHdr->u16CheckSum  = 0;
 
-  size_t reqLen = sizeof(IPv6_HEADER_t) + sizeof(UDP_HEADER_t) + u16ContentLen;
+  size_t reqLen = sizeof(UDP_HEADER_t) + u16ContentLen;
   printf("will send %zu bytes\n", reqLen);
-  ssize_t sendLen = sendto(tRawUDPSock, ptIPv6_header, reqLen, 0/*flags*/, (const struct sockaddr*)&to,  sizeof(to));
+  ssize_t sendLen = sendto(tRawUDPSock, ptUdpHdr, reqLen, 0/*flags*/, (const struct sockaddr*)&to,  sizeof(to));
  
   if(sendLen < 0)
   {
