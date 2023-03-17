@@ -70,10 +70,10 @@ int main(int argc , char* argv[])
   IPv6_HEADER_t* ptIPv6_header = (IPv6_HEADER_t*)abPktInfo;
   memset(ptIPv6_header, 0, sizeof(*ptIPv6_header));
 
-  ptIPv6_header->abVTF[0]    = 0x60;
-  ptIPv6_header->sPayloadLen = htons(sizeof(UDP_HEADER_t) + u16ContentLen); 
-  ptIPv6_header->bNextHeader = IPPROTO_UDP; 
-  ptIPv6_header->bHopLimit   = 128; 
+  ptIPv6_header->abVTF[0]      = 0x60;
+  ptIPv6_header->u16PayloadLen = htons(sizeof(UDP_HEADER_t) + u16ContentLen); 
+  ptIPv6_header->bNextHeader   = IPPROTO_UDP; 
+  ptIPv6_header->bHopLimit     = 128; 
   memcpy(ptIPv6_header->abSrcAddr, &from.sin6_addr, sizeof(from.sin6_addr));
   memcpy(ptIPv6_header->abDstAddr, &to.sin6_addr, sizeof(to.sin6_addr));
 
