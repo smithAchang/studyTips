@@ -563,6 +563,78 @@ void f()
 }
 ```
 
+### 使用宏或内联函数减轻圈复杂度
+
+**正例**
+```c
+#define PARA_CHECK_EXCEPTION_RETURN(expr, rc, exception_log_format, args...) do {\
+     if(expr)\
+     {\
+        printf(exception_log_format"\n", ## args);\
+        return rc; \
+     }\
+}while(0)
+
+// use as gloabl but temporary scan timer
+static int s_RetryTimerId = -1;
+
+static inline void startRetryTimer(...)
+{
+  addSomeControlInfoToTimerGlabalDataStructure(...);
+  
+  if(s_RetryTimerId == -1)
+  {
+    s_RetryTimerId = new_timer(...);
+  }
+}
+
+int f(const char* data)
+{
+   PARA_CHECK_EXCEPTION_RETURN(unlikely(data == NULL), -1, " %s input para error!", __func__);
+   
+   // some service code
+   ...
+   
+   if(!isNeedRetryLately)
+   {  
+      startRetryTimer(...);
+   }
+   
+   return 0;
+}
+```
+
+
+~~**反例**~~
+```c
+int f(const char* data)
+{
+   if(unlikely(data == NULL))
+   {
+      printf("%s input para error!\n", __func__);
+      return -1;
+   }
+   
+   // some service code
+   ...
+   
+   if(!isNeedRetryLately)
+   {  
+      addSomeControlInfoToTimerGlabalDataStructure(...);
+  
+      if(s_RetryTimerId == -1)
+      {
+        s_RetryTimerId = new_timer(...);
+      }
+   }
+   
+   return 0;
+}
+
+```
+
+
+
 ### 就近访存
 
 #### 原地化访问
