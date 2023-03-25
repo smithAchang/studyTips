@@ -4,6 +4,15 @@
 #include <stdbool.h>
 
 
+#ifndef  likely
+  #define  likely(x) __builtin_expect(!!(x), 1)
+#endif
+
+#ifndef  unlikely
+  #define  unlikely(x) __builtin_expect(!!(x), 0)
+#endif
+
+
 #define PARA_CHECK_RETRUN_GNU(expr, rc, format, args...) do{\
   if(expr)\
   {\
@@ -35,8 +44,14 @@ void f_void_has_no_print_para_ret()
   PARA_CHECK_NORETRUN_GNU(b == 1, "hello %s additional para: %d", __func__, b);
   PARA_CHECK_NORETRUN_GNU(b == 1, "hello no additional para");
 
+  PARA_CHECK_NORETRUN_GNU(likely(b == 1), "hello %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_GNU(unlikely(b == 1), "hello no additional para");
+
   PARA_CHECK_NORETRUN_C99(b == 1, "hello c99 %s additional para: %d", __func__, b);
   PARA_CHECK_NORETRUN_C99(b == 1, "hello c99 no additional para");
+
+  PARA_CHECK_NORETRUN_C99(likely(b == 1), "hello c99 %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_C99(unlikely(b == 1), "hello c99 no additional para");
 
   PARA_CHECK_NORETRUN_GNU(b == 0, "hello no additional para");
 }

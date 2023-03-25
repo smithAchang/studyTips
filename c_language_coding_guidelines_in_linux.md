@@ -4,6 +4,7 @@
 ----------|----------------|----------------
 V1.0      | 2022-03-15     | MD化
 V1.01     | 2023-02-17     | 零值和-1同时作为非法值
+V1.02     | 2023-03-25     | 使用宏或内联函数降低圈复杂度
 
 
 
@@ -203,7 +204,7 @@ void main(void)
 // third-party api
 #include <third-party/time.h>
 
-//self module api
+// self module api
 #include "otherApiInModule.h"
 ```
 
@@ -216,7 +217,7 @@ void main(void)
 // third-party api
 #include "third-party/time.h"
 
-//self module api
+// self module api
 #include "otherApiInModule.h"
 ```
 
@@ -228,12 +229,12 @@ void main(void)
 ```c
 if(likely(conditiontest))
 {
- //most hit code
+ // most hit code
  ...
 }
 else
 {
-  //less hit code
+  // less hit code
   ...
 }
 ```
@@ -267,7 +268,7 @@ int f(int * intPtr)
     return errorValue;
   }
 
-  //normal flow
+  // normal flow
   ...
 }
 ```
@@ -282,7 +283,7 @@ int f(int* intPtr)
    return errorValue;
  }
 
- //normal flow
+ // normal flow
  ...
 }
 ```
@@ -463,7 +464,7 @@ void f()
   struct A a = {};
   unsigned char buffer[512] = {};
  
-  //some code using the above vars
+  // some code using the above vars
   ...
 }
 ```
@@ -479,7 +480,7 @@ void f()
   memset(&a, 0, sizeof(a));
   memset(buffer, 0, sizeof(buffer));
 
-  //some code using the above vars
+  // some code using the above vars
   ...
 }
 ```
@@ -541,7 +542,7 @@ if(conditionTest)
    return flow_end;
 }
 
-//normal code flow
+// normal code flow
 ...
 ```
 
@@ -595,7 +596,7 @@ int f(const char* data)
    // some service code
    ...
    
-   if(!isNeedRetryLately)
+   if(isNeedRetryLately)
    {  
       startRetryTimer(...);
    }
@@ -618,7 +619,7 @@ int f(const char* data)
    // some service code
    ...
    
-   if(!isNeedRetryLately)
+   if(isNeedRetryLately)
    {  
       addSomeControlInfoToTimerGlabalDataStructure(...);
   
@@ -633,7 +634,7 @@ int f(const char* data)
 
 ```
 
-
+> 形式上减少了if语句的嵌套，字面上更体现代码意图
 
 ### 就近访存
 
@@ -650,7 +651,7 @@ struct A* const ptA = getASingleton();
 
 while(TRUE)
 {
-   //some usage
+   // some usage
    f(ptA);
 }
 
@@ -663,7 +664,7 @@ extern struct A*  getASingleton();
 
 while(TRUE)
 {
-   //some usage
+   // some usage
    f(getASingleton());
 }
 ```
@@ -679,7 +680,7 @@ int offset = initValue;
 
 ...
 
-//在编译器不能很好优化代码情况下，可以能会多一次访存操作
+// 在编译器不能很好优化代码情况下，可以能会多一次访存操作
 offset     = offset + 1;
 ```
 
@@ -700,10 +701,10 @@ void f()
   IPv4_addr ip ;
   unsigned char buffer[512];
 
-  //for whole value usage
+  // for whole value usage
   printf("encoding IPv4 Addr Value:%u\n",  ip.dwAddr);
  
-  //for byte operation
+  // for byte operation
   memcpy(buffer,  ip.abAddr,  sizeof(ip.abAddr));
 }
 ```
@@ -716,10 +717,10 @@ void f()
   unsigned char  ip[4] ;
   unsigned char buffer[512];
 
-  //for whole value usage
+  // for whole value usage
   printf("encoding IPv4 Addr Value:%u\n",  *(unsigned int *)ip);
  
-  //for byte operation
+  // for byte operation
   memcpy(buffer,  ip,  sizeof(ip));
 }
 ```
@@ -768,14 +769,14 @@ if((unsigned char )(bEndIndex  -  bStartIndex) >  MAX_CAPACITY)
 unsigned char bStartIndex  = 12;
 unsigned char bEndIndex    = 11;
 
-//编译器生成代码有点出乎意料，允许负值的产生
+// 编译器生成代码有点出乎意料，允许负值的产生
 if((bEndIndex  -  bStartIndex  ) >  MAX_CAPACITY)
 {
   exception_log(...);
   return FALSE;
 }
 
-//error 无法防止负值的出现
+// error 无法防止负值的出现
 ... 
 ```
 
@@ -816,7 +817,7 @@ if((bEndIndex  -  bStartIndex  ) >  MAX_CAPACITY)
 extern "C" {
 #endif
 
-  //some declarations
+  // some declarations
   ...
 
 #ifdef  __cplusplus
@@ -830,7 +831,7 @@ extern "C" {
 ~~**反例**~~
 ```c
 // a header file
-//some C language declarations
+// some C language declarations
 ...
 ```
 
@@ -845,7 +846,7 @@ extern "C" {
 extern "C" {
 #endif
 
-//some declarations
+// some declarations
 typedef struct tag_T_Context { ... } T_Context;
 
 T_Context* api_Alloc_Context();
@@ -896,7 +897,7 @@ void f(int indicator)
 {
   log("%s begin run ...", __func__);
 
-  //看日志并不容易得到运行分支信息 ???
+  // 看日志并不容易得到运行分支信息 ???
   if(indicator > someValue)
   {
      ...
@@ -1000,26 +1001,26 @@ static inline  __attribute__((__always_inline__)) f(...)
 
 **正例**
 ```c
-//can be used by multiple threads
+// can be used by multiple threads
 const char* f(unsigned char bType)
 {
   static __thread char buffer[512];
   // format information into buffer using bType para
   ...
-  return buffer;//线程间使用内存区别开
+  return buffer;// 线程间使用内存区别开
 }
 ```
 
 
 ~~**反例**~~
 ```c
-//maybe used by multiple threads
+// maybe used by multiple threads
 const char* f(unsigned char bType)
 {
   static char buffer[512];
   // format information into buffer using bType para
   ...
-  return buffer;//多线程场景存在多线程竞争
+  return buffer;// 多线程场景存在多线程竞争
 }
 ```
 
