@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>430</y>
+      <w>370</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>**&gt;&gt; sendto(..., new_buffer, ...)**
+
+valign=top
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>180</x>
+      <y>120</y>
+      <w>280</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>requesting send buffer ...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>180</x>
+      <y>220</y>
+      <w>280</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>copy data from the requesting send buffer ...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>220</y>
+      <w>90</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>ext header ...
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>170</x>
+      <y>130</y>
+      <w>60</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=copy
+fg=red</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>660</x>
+      <y>120</y>
+      <w>270</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>requesting send buffer ...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>570</x>
+      <y>220</y>
+      <w>90</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>ext header ...
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>500</x>
+      <y>280</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>**iovec[0]**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>500</x>
+      <y>310</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>**iovec[1]**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>220</y>
+      <w>70</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>560</x>
+      <y>130</y>
+      <w>120</w>
+      <h>210</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;190.0;10.0;190.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>500</x>
+      <y>430</y>
+      <w>430</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>**&gt;&gt; sendmsg(..., iovec, 2,  ...)**
+valign=top
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>40</x>
+      <y>90</y>
+      <w>440</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>common send</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>230</y>
+      <w>130</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=new buffer send</panel_attributes>
+    <additional_attributes>10.0;200.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>480</x>
+      <y>90</y>
+      <w>490</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>iovec[] send</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>490</x>
+      <y>330</y>
+      <w>100</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=iovec[] send</panel_attributes>
+    <additional_attributes>10.0;100.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>230</y>
+      <w>400</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=|&lt;.&gt;|
+
+new_buffer
+fg=orange</panel_attributes>
+    <additional_attributes>10.0;20.0;380.0;20.0</additional_attributes>
+  </element>
+</diagram>

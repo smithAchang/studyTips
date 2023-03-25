@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>210</x>
+      <y>430</y>
+      <w>350</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>**&lt;&lt; recvfrom(..., recvBuf + offset, ...)**
+
+valign=top
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>160</y>
+      <w>470</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>receiving buffer ...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>210</x>
+      <y>250</y>
+      <w>350</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>will filled by incoming package ...</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>90</x>
+      <y>250</y>
+      <w>120</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>prefix space ...
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>170</y>
+      <w>60</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=offset
+fg=red</panel_attributes>
+    <additional_attributes>10.0;80.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>620</x>
+      <y>160</y>
+      <w>140</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>prefix space ... ...
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>600</x>
+      <y>280</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>**iovec[0]**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>600</x>
+      <y>310</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>**iovec[1]**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>170</y>
+      <w>120</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>100.0;10.0;100.0;120.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>170</y>
+      <w>420</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>400.0;10.0;400.0;150.0;10.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>760</x>
+      <y>430</y>
+      <w>400</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>**&gt;&gt; recvmsg(..., iovec, 2,  ...)**
+valign=top
+fontsize=20</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>40</x>
+      <y>90</y>
+      <w>540</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>common recv</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>260</y>
+      <w>110</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=common recv</panel_attributes>
+    <additional_attributes>10.0;170.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLFrame</id>
+    <coordinates>
+      <x>580</x>
+      <y>90</y>
+      <w>600</w>
+      <h>410</h>
+    </coordinates>
+    <panel_attributes>iovec[] recv</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>280</y>
+      <w>320</w>
+      <h>170</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;&lt;-
+m1=iovec[] recv, buffer will be filled by some format</panel_attributes>
+    <additional_attributes>10.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>760</x>
+      <y>160</y>
+      <w>100</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>ext header
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>860</x>
+      <y>160</y>
+      <w>200</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>prefix space before payload
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>1060</x>
+      <y>160</y>
+      <w>100</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>payload
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>130</y>
+      <w>570</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=|&lt;.&gt;|
+receiving buffer</panel_attributes>
+    <additional_attributes>10.0;20.0;550.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>80</x>
+      <y>130</y>
+      <w>500</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=|&lt;.&gt;|
+receiving buffer</panel_attributes>
+    <additional_attributes>10.0;20.0;480.0;20.0</additional_attributes>
+  </element>
+</diagram>
