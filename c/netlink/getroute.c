@@ -114,14 +114,7 @@ int  __attribute__((nonnull(2))) nl_filter_route(int family, const struct nlmsgh
 int main(int argc , char* argv[])
 {
   char szErrno[256];
-  if(argc < 2)
-  {
-    PROG_USAGE();
-    return -1;
-  }
-
   int ack_flag = 0, opt;
-
 
   while ((opt = getopt(argc, argv, "a")) != -1) 
   {
@@ -136,13 +129,12 @@ int main(int argc , char* argv[])
      }
   }
 
-
-  RC_EXCEPTION_RETURN(argc < 2, "Usage program dst");
+  RC_EXCEPTION_RETURN(optind >= argc, "Usage: %s [-a] dst\n", argv[0]);
 
   int rc;
-  size_t dstlen = strlen(argv[1]);
+  size_t dstlen = strlen(argv[optind]);
 
-  printf("Hello World!\n");
+  printf("Hello World! Get route for %s\n", argv[optind]);
 
   int tNetlinkUDPSock = socket(AF_NETLINK, SOCK_RAW | SOCK_CLOEXEC, NETLINK_ROUTE);
 
