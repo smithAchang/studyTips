@@ -27,3 +27,17 @@ $ACE_ROOT/bin/mwc.pl -type gnuace ACE.mwc
 cd $ACE_ROOT
 
 make
+
+# fuzz found trailing whitespace check
+
+cd $ACE_ROOT
+bin/fuzz.pl
+
+> 避免PR被自动流程拒绝
+
+# vc proj
+$ACE_ROOT/bin/mwc.pl -type vs2019 -recurse -hierarchy -relative ACE_ROOT=/home/gui/ACE_TAO/ACE -relative TAO_ROOT=/home/gui/ACE_TAO/TAO -workers 20 -name_modifier "*_vs2019"
+
+
+# window
+/d/gitrepo/ACE_TAO/ACE/bin/mwc.pl -type vs2019 -recurse -hierarchy -relative ACE_ROOT=/d/gitrepo/ACE_TAO/ACE -relative TAO_ROOT=/d/gitrepo/ACE_TAO/TAO -workers 20 -name_modifier "*_vs2019"
