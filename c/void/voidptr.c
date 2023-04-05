@@ -13,13 +13,14 @@ typedef struct Byte8
 
 typedef struct tagT_KeyInfo 
 {
-  uint8_t bType;
+  uint8_t  bType;
   uint16_t wLen;
   union
    {
-     uint8_t  data[5]
-     uin16_t  wData;
-     uint32_t dwData;
+     uint8_t   data[5];
+     uint16_t  wData;
+     uint32_t  dwData;
+   };
 } __attribute__((packed)) T_KeyInfo;
 
 int f(void *arg)
@@ -41,10 +42,8 @@ int main(int argc, char* argv[])
   
   void* p2 = *(void**)&para1;
 
-  printf("Cannot convert to a pointer type\n");
-  void* p3 = (void*)para1;
-
-
+  printf("Cannot convert to a pointer type from struct type!\n");
+  //void* p3 = (void*)para1;
   
   T_KeyInfo tKeyInfo = {};
   tKeyInfo.bType = 100;
