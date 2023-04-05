@@ -33,8 +33,7 @@ echo 'include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU' > $ACE_ROOT/in
 
 cd $ACE_ROOT
 
-$ACE_ROOT/bin/mwc.pl -type gnuace $ACE_ROOT/ace/ace.mwc
-$ACE_ROOT/bin/mwc.pl -type gnuace $ACE_ROOT/tests/tests.mwc
+$ACE_ROOT/bin/mwc.pl -type gnuace $ACE_ROOT/ACE.mwc
 
 cd $ACE_ROOT
 
