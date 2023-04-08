@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>483</x>
+      <y>182</y>
+      <w>378</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>**变量或指针变量 e.g. Var **
+--
+Value | Address</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>476</x>
+      <y>224</y>
+      <w>105</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+Address In Memory
+fg=orange</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>483</x>
+      <y>308</y>
+      <w>378</w>
+      <h>49</h>
+    </coordinates>
+    <panel_attributes>**任何指针变量**
+--
+Address</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>476</x>
+      <y>350</y>
+      <w>399</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=|&lt;.&gt;|
+
+Machine WORD
+fg=red</panel_attributes>
+    <additional_attributes>10.0;20.0;550.0;20.0</additional_attributes>
+  </element>
+</diagram>
