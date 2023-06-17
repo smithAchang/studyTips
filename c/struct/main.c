@@ -61,6 +61,16 @@ void f3(struct C c)
   printf("Using complex struct pointer arg type: %u\n", c.head.type);
 }
 
+void f4(struct C atC[1])
+{
+  printf("Using array argument to test struct assignment\n");
+  struct C  tC = {}, tC2 = {};
+  struct C *ptC = &tC;
+
+  atC[0]  = tC;
+  *ptC    = tC2;
+}
+
 int main(void)
 {
 
