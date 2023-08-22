@@ -1,0 +1,955 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>8</zoom_level>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>424</x>
+      <y>32</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**过程式**
+type=sender
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>424</x>
+      <y>88</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>C语言
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>32</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**简单组件**
+type=sender
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>560</x>
+      <y>88</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>C语言
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>688</x>
+      <y>32</y>
+      <w>152</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**典型结构组件**
+bg=yellow
+type=sender</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>688</x>
+      <y>88</y>
+      <w>120</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>ACE核心网技术栈
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLSyncBarVertical</id>
+    <coordinates>
+      <x>384</x>
+      <y>32</y>
+      <w>16</w>
+      <h>96</h>
+    </coordinates>
+    <panel_attributes>template=txt
+title=titletext
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>448</x>
+      <y>48</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>584</x>
+      <y>48</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>704</x>
+      <y>48</y>
+      <w>24</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>lt=.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>0</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 场景**
+fontsize=18
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>184</y>
+      <w>80</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 编程模式**
+fontsize=18
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>232</y>
+      <w>512</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>平台外业务面向Job C语言编程
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>424</x>
+      <y>256</y>
+      <w>144</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>平台内面向Job C语言编程
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>568</x>
+      <y>256</y>
+      <w>176</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>平台内C语言简单组件
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>744</x>
+      <y>256</y>
+      <w>192</w>
+      <h>48</h>
+    </coordinates>
+    <panel_attributes>复杂结构组件
+bg=gray</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>432</x>
+      <y>472</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Job Entry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>376</x>
+      <y>480</y>
+      <w>112</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Job Message</panel_attributes>
+    <additional_attributes>120.0;30.0;120.0;60.0;10.0;60.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>744</x>
+      <y>472</y>
+      <w>264</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>ACE Task(With Thread Executing capability)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>688</x>
+      <y>480</y>
+      <w>208</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>240.0;30.0;240.0;60.0;10.0;60.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>824</x>
+      <y>656</y>
+      <w>264</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>ACE Task(With Thread) ...
+--
+
+
+
+
+
+
+
+
+-.
+
+
+
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>904</x>
+      <y>688</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Job Entry #1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>696</y>
+      <w>112</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Job Message</panel_attributes>
+    <additional_attributes>120.0;30.0;120.0;60.0;10.0;60.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>904</x>
+      <y>792</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>Job Entry #2</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>848</x>
+      <y>800</y>
+      <w>112</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Job Message</panel_attributes>
+    <additional_attributes>120.0;30.0;120.0;60.0;10.0;60.0;10.0;10.0;70.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>736</x>
+      <y>744</y>
+      <w>208</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>240.0;220.0;240.0;250.0;10.0;250.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>424</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 面向Job编程解决方案**
+fontsize=18
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>1016</y>
+      <w>328</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 重复出现的ACE技术栈应用2---HTTP2协议栈**
+fontsize=18
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>408</x>
+      <y>656</y>
+      <w>224</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>ACE Reactor(Need Dispatching Thread)
+--
+
+**Timers**
+
+-.
+
+
+**UDP  sockets**
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>624</x>
+      <y>736</y>
+      <w>136</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>400</x>
+      <y>1072</y>
+      <w>224</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>ACE Reactor(Need Dispatching Thread)
+--
+
+**Timers**
+
+-.
+
+
+** TCP sockets**
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>1152</y>
+      <w>136</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>1160</y>
+      <w>208</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>240.0;220.0;240.0;250.0;10.0;250.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>816</x>
+      <y>1072</y>
+      <w>280</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>ACE Task(With Single Thread)
+--
+
+
+**non Job case**
+
+eg. HTTP2 Stack
+
+
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>520</x>
+      <y>488</y>
+      <w>160</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+**可比拟**
+fg=red</panel_attributes>
+    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>1848</y>
+      <w>336</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 抽象ACE典型应用技术栈**
+fontsize=18
+halign=left
+bg=red
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>384</x>
+      <y>1920</y>
+      <w>224</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>ACE Reactor(Need Dispatching Thread)  ...
+--
+
+**Timers**
+
+-.
+
+
+**UDP | TCP sockets**
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>600</x>
+      <y>2000</y>
+      <w>136</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>712</x>
+      <y>2008</y>
+      <w>208</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>240.0;220.0;240.0;250.0;10.0;250.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>800</x>
+      <y>1920</y>
+      <w>296</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>ACE Task(With Thread[s]) ...
+--
+
+
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>368</x>
+      <y>608</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**## 平台现在基于ACE的Job编程解决方案**
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>360</y>
+      <w>824</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>**&gt;&gt; 平台和上层业务编程大部分体现为C语言范式**
+**&gt;&gt; 所以，平台和上层业务编程，主体开发语言为C语言；但建议在典型场景使用C++ ACE提供的技术栈，使之成为核心网C|C++开发的沉淀技术**
+**&gt;&gt; 相比较于语言选择的简单性，代码中重复出现的编程模式，所带来的简单性，亦可以成为追求目标**
+fontsize=14
+halign=left
+fg=blue
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2312</y>
+      <w>288</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 思考  ACE给我们解决的问题？**
+fontsize=18
+halign=left
+bg=red
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2344</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ 线程安全，且默认实现高效 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2368</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ 封装自带消息队列和队列水位标 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2424</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ C++线程池管理：PHR使用ACE Task多线程模型 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2392</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ 定时器管理及异步Sockets、系统信号处理统一制式于Reactor组件 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2456</y>
+      <w>416</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ ACE框架设计优良、成熟、可靠、适应性广泛；应避免重复造轮子 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>1392</y>
+      <w>312</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 重复出现的ACE技术栈应用3---PHR线程池**
+fontsize=18
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>400</x>
+      <y>1432</y>
+      <w>224</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>ACE Reactor(Need Dispatching Thread)
+--
+
+**Timers**
+
+-.
+
+
+** UDP sockets**
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>816</x>
+      <y>1432</y>
+      <w>280</w>
+      <h>264</h>
+    </coordinates>
+    <panel_attributes>ACE Task(With multiple Threads | Thread Pool)
+--
+
+
+**PHR multi-thread**
+
+一生产者多消费者
+
+
+
+
+
+-.
+
+**...**
+valign=top
+halign=center
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>616</x>
+      <y>1512</y>
+      <w>136</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>10.0;20.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>728</x>
+      <y>1520</y>
+      <w>208</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+Message Block</panel_attributes>
+    <additional_attributes>240.0;220.0;240.0;250.0;10.0;250.0;10.0;10.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2632</y>
+      <w>288</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**# 与大师讨论问题深入研究 ？**
+fontsize=18
+halign=left
+bg=orange
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2672</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**- 海量并发定时器 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>2696</y>
+      <w>768</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>&gt;&gt; ACE_Reactor::instance()默认定时器队列采用高效最小堆队列算法
+&gt;&gt; ACE定时器默认高效实现，也算框架编程给予的惊喜，开箱即用。一般开发人员建构考量难以全面，或根本无深厚的算法功底
+&gt;&gt; 最小堆队列算法支持海量定时器和高效调度；且定时器实现支持预先分配定时器内存的进一步实时性优化参数化配置
+&gt;&gt; 它山之石：libEvent和JAVA JDK定时器默认定时器队列均是基于最小堆的算法
+fontsize=15
+halign=left
+fg=gray
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2760</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**- 定时器精度 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>2784</y>
+      <w>616</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>&gt;&gt; 问题相对比较复杂，基于软件的定时器水平预估都差不多，理论基础都一样，差异不会是质的差别
+
+fontsize=15
+halign=left
+fg=gray
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2488</y>
+      <w>888</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>**+ ACE为App框架，相对于其它模块级组件，例如,libEvent，更适合建构App，特别是面向Job编程、构建完整App或建构的复杂组件**
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2520</y>
+      <w>824</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>**+ ACE接口设计理念一致，易于掌握；仅需要了解其接口，并非需深入研习其代码；接口设计理念的重复，又是另一种层面的简单**
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>768</x>
+      <y>280</y>
+      <w>168</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>平台内ACE技术栈复杂结构组件
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2552</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ Message Block支持内存引用计数，可能利于扩展 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>376</x>
+      <y>2584</y>
+      <w>376</w>
+      <h>24</h>
+    </coordinates>
+    <panel_attributes>**+ ACE::daemonize提供了符合*NIX传统的后台化方法 **
+fontsize=16
+halign=left
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>384</x>
+      <y>552</y>
+      <w>824</w>
+      <h>56</h>
+    </coordinates>
+    <panel_attributes>**&gt;&gt; ACE Task组件自带消息输入队列和线程池**
+fontsize=14
+halign=left
+fg=orange
+lw=0</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

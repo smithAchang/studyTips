@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>88</x>
+      <y>187</y>
+      <w>583</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>**A a   = {}**
+**void* pv          = *(void**)&amp;a**
+valign=center
+halign=center
+bg=cyan
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>88</x>
+      <y>33</y>
+      <w>1342</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>bg=blue
+
+**//assert(sizeof(A) == sizeof(void*)) 将结构体类型装入指针容器**
+
+typdef struct A
+{
+       ...
+ 
+             } A, *APtr;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>88</x>
+      <y>187</y>
+      <w>583</w>
+      <h>704</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>671</x>
+      <y>187</y>
+      <w>759</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>**A a = *(APtr)&amp;pv**
+valign=center
+halign=center
+bg=cyan
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1155</x>
+      <y>275</y>
+      <w>264</w>
+      <h>121</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=green
+pv的value装载的并非地址信息，
+而是结构体的Value，
+所以，获取pv的value
+必须从pv变量自身地址
+开始读取信息
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>231</x>
+      <y>286</y>
+      <w>297</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>&amp;运算操作符获得变量a的地址</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>319</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>231</x>
+      <y>396</y>
+      <w>297</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>*运算操作符从a的地址开始读取</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>429</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>231</x>
+      <y>506</y>
+      <w>297</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&amp;运算符操作符获取地址信息
+按照void**解释</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>231</x>
+      <y>682</y>
+      <w>297</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*解引用读取sizeof(void*)字节信息内容
+赋值给pv目标变量</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>605</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>341</x>
+      <y>781</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>341</x>
+      <y>858</y>
+      <w>22</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>type=final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>671</x>
+      <y>242</y>
+      <w>759</w>
+      <h>649</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>792</x>
+      <y>286</y>
+      <w>341</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>&amp;运算操作符获得指针变量pv的地址</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>957</x>
+      <y>319</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>792</x>
+      <y>396</y>
+      <w>341</w>
+      <h>44</h>
+    </coordinates>
+    <panel_attributes>*运算操作符从pv指针变量自身的地址开始读取</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>792</x>
+      <y>506</y>
+      <w>352</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&amp;运算符操作符获取地址信息
+按照APtr解释</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>957</x>
+      <y>429</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>957</x>
+      <y>605</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLState</id>
+    <coordinates>
+      <x>792</x>
+      <y>682</y>
+      <w>352</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>*解引用读取sizeof(A)字节信息内容
+赋值给a目标变量</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>957</x>
+      <y>781</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLSpecialState</id>
+    <coordinates>
+      <x>957</x>
+      <y>858</y>
+      <w>22</w>
+      <h>22</h>
+    </coordinates>
+    <panel_attributes>type=final</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>385</x>
+      <y>814</y>
+      <w>264</w>
+      <h>66</h>
+    </coordinates>
+    <panel_attributes>Note..
+bg=green
+虽然所指针类型sizeof大小一致，
+通过适当转型达到类型安全
+
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

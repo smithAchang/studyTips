@@ -12,6 +12,9 @@
 
         git push origin local_branch:remote_branch
 
+-----
+
+git clone -b v3.10 git@github.com:torvalds/linux.git
 
 -----
 git stash pop
@@ -42,6 +45,7 @@ git tag -a v1.4 -m "my version 1.4"
 --- 根据历史打标签
 git log --pretty=oneline
 git tag -a v1.2 9fceb02
+git checkout -b branch_name tagname
 
 
 --推某一个标签

@@ -33,6 +33,11 @@ int f(void *arg)
   return 0;
 }
 
+int f2(void)
+{
+  printf("test no return \n");  
+}
+
 int main(int argc, char* argv[])
 {
   printf("Hello world !\n");
@@ -53,6 +58,8 @@ int main(int argc, char* argv[])
   //作为字节容器，将机器字长度信息传入，用求地址运算得到地址，将其类型转化为void**，则解引用后就可以将字节信息装载到void*中
   void* arg = *(void**)&tKeyInfo; 
   f(arg);
+  
+  int rc2 = f2();
   
   printf("Exit from program !\n");
   return 0;
