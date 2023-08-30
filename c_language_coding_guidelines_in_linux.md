@@ -55,11 +55,11 @@ gcc -g -o someProc main.c
 
 **正例**
 ```bash
-gcc -W -Wall -Werror=overflow -g -o someProc main.c
+gcc -W -Wall -pipe -Werror=overflow -g -o someProc main.c
 
 或
 
-gcc -W -Wall -Werror [-Wno-*...] -g -o someProc main.c
+gcc -W -Wall -pipe -Werror [-Wno-*...] -g -o someProc main.c
 ```
 
 > 即使在-Werror开关的情况下，依然可以通过-Wno-\*的编译选项进行定制排除，将某些影响不大的warning排除
