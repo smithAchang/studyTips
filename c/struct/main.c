@@ -46,6 +46,30 @@ struct Msgs
   };
 };
 
+void f1(const struct A* ptA)
+{
+  printf("Using struct pointer arg type: %u\n", ptA->type);
+}
+
+void f2(struct A a)
+{
+  printf("Using struct pointer arg type: %u\n", a.type);
+}
+
+void f3(struct C c)
+{
+  printf("Using complex struct pointer arg type: %u\n", c.head.type);
+}
+
+void f4(struct C atC[1])
+{
+  printf("Using array argument to test struct assignment\n");
+  struct C  tC = {}, tC2 = {};
+  struct C *ptC = &tC;
+
+  atC[0]  = tC;
+  *ptC    = tC2;
+}
 
 int main(void)
 {
@@ -63,13 +87,16 @@ int main(void)
     foreach_timerid_field()
   #undef _
 
-  #define ptrUsing() (&aa)->
-  #define _(sym, desc) sym = -1;
-    ptrUsing()foreach_timerid_field()
-  #undef _
-  #undef ptrUsing
+  printf("\nsizeof(A)=%zu, sizeof(A.data)=%zu", sizeof(*a), sizeof(a->data));\
 
-  printf("\nsizeof(A)=%zu, sizeof(A.data)=%zu", sizeof(*a), sizeof(a->data));
+  a->type = 1;
+  aa.type = 2;
+  struct C c = {};
+  c.head.type = 3;
+  
+  f1(a);
+  f2(aa);
+  f3(c);
 
   char src[] = "Hello World!";
   unsigned int copyLen = sizeof(src);
@@ -77,7 +104,7 @@ int main(void)
   memcpy(a->data, src, copyLen);
 
   struct B *b = (struct B *)encodeBuf;
-  printf("\nsizeof(B.head)=%zu, sizeof(B)=%zu", sizeof(b->head), sizeof(*b));
+  printf("\nsizeof(B.head)=%zu, sizeof(B)=%zu\n", sizeof(b->head), sizeof(*b));
   memcpy(b->head.data, src, copyLen);
 
   printf("\n");
