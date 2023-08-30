@@ -24,7 +24,7 @@ V1.05     | 2023-08-30     | 增补`-pipe`的GCC常用编译选项，可以加�
 
 **正例**
 ```bash
-gcc -W -Wall -g -o someProc main.c
+gcc -W -Wall -pipe -g -o someProc main.c
 ```
 
 
