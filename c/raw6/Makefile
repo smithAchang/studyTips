@@ -11,16 +11,16 @@ vpath %.c .:../common
 
 clientu: rawudp.c header.h
 	@echo "build raw udp client program ..."
-	gcc -g3 -O0 -W -Wall $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 
 
 clientr: rawall.c header.h
 	@echo "build raw all socket client program ..."
-	gcc -g3 -O0 -W -Wall $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@
 
 server: server.c header.h
 	@echo "build raw socket server program ..."
-	gcc -g3 -O0 -W -Wall $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 
 
 flowlabel: flowlabel.c header.h
 	@echo "build IPv6 flow label test program ..."
-	gcc -g3 -O0 -W -Wall $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(EXT_CFLAG_NO_WARINGS) -I../common $^ -o $@ 

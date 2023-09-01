@@ -9,4 +9,4 @@ vpath %.c .
 
 sched: sched.c
 	@echo "build bits field increased beyond the threshold test program ..."
-	gcc -g3 -O0 -W -Wall $(NO_WARNINGS) $^
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(NO_WARNINGS) $^

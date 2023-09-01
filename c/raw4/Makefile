@@ -9,4 +9,4 @@ vpath %.c .:../common
 
 rebind: rawbind.c header.h
 	@echo "build raw udp client program ..."
-	gcc -g3 -O0 -W -Wall $(EXT_CFLAG_NO_WARINGS) $^ -o $@ 
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe $(EXT_CFLAG_NO_WARINGS) $^ -o $@ 
