@@ -12,6 +12,14 @@
 
         git push origin local_branch:remote_branch
 
+---
+# 在本地创建分支dev并切换到该分支
+git fetch origin ringQueue
+
+
+git checkout -b dev(本地分支名称) origin/dev(远程分支名称)
+git checkout -b branchname origin/branchname
+
 -----
 
 git clone -b v3.10 git@github.com:torvalds/linux.git
