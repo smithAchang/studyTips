@@ -24,6 +24,8 @@ if [ ! -d $compileDir/MPC ]; then
  exit 1
 fi
 
+export ACE_ROOT=$compileDir
+
 if [ ! -d $curDir/ace ]; then
  # change work dir
  pushd $ACE_ROOT
