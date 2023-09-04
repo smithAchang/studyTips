@@ -1,12 +1,13 @@
 # 修改记录
 
-版本号    |日期             | 更改理由  
+版本号    |日期             | 更改理由
 ----------|----------------|----------------
 V1.0      | 2022-03-15     | MD化
 V1.01     | 2023-02-17     | 零值和-1同时作为非法值
 V1.02     | 2023-03-25     | 使用宏或内联函数降低圈复杂度
 V1.03     | 2023-06-09     | 增补性能测试对日志要求；增补资源标识分配避免短时间回环的要求
 V1.04     | 2023-06-17     | 用性能压力测试暴露低效代码关键区
+V1.05     | 2023-08-30     | 增补`-pipe`的GCC常用编译选项，可以加快编译速度
 
 
 
@@ -23,7 +24,7 @@ V1.04     | 2023-06-17     | 用性能压力测试暴露低效代码关键区
 
 **正例**
 ```bash
-gcc -W -Wall -g -o someProc main.c
+gcc -W -Wall -pipe -g -o someProc main.c
 ```
 
 
@@ -32,10 +33,17 @@ gcc -W -Wall -g -o someProc main.c
 gcc -g -o someProc main.c
 ```
 
-### 建议增加-W -Wall -g编译器开关
+### 建议增加-W -Wall -pipe -g编译器开关
 
-+ 打开-W -Wall 警告开关，可以让编译器尽量将代码中的告警进行展示
-+ 打开-g开关，以利于在出错的情况下，可以较为准确地获知堆栈信息
++ 打开`-W -Wall` 警告开关，可以让编译器尽量将代码中的告警进行展示
++ 打开`-pipe`编译选项，使得编译中间结果用管道传递，避免中间临时文件的磁盘IO操作，可以提高编译效率 
++ 打开`-g`开关，以利于在出错的情况下，可以较为准确地获知堆栈信息
+
+>  `-pipe`
+>           `Use pipes rather than temporary files` for communication between the various stages of compilation.
+>            This fails to work on some systems ~~where the assembler is unable to read from a pipe~~; 
+>            **but the GNU assembler has no trouble.**
+
 
 ### 持续消除warning
 
@@ -47,11 +55,11 @@ gcc -g -o someProc main.c
 
 **正例**
 ```bash
-gcc -W -Wall -Werror=overflow -g -o someProc main.c
+gcc -W -Wall -pipe -Werror=overflow -g -o someProc main.c
 
 或
 
-gcc -W -Wall -Werror [-Wno-*...] -g -o someProc main.c
+gcc -W -Wall -pipe -Werror [-Wno-*...] -g -o someProc main.c
 ```
 
 > 即使在-Werror开关的情况下，依然可以通过-Wno-\*的编译选项进行定制排除，将某些影响不大的warning排除

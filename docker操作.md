@@ -18,6 +18,7 @@ make install-ext-deps
 
 
 sudo docker run --rm  -it --name gcc11.2.0 -v ~/workspace/:/workspace -h gcc11.2.0 -w /workspace gcc:11.2.0 /bin/bash
+sudo docker run --rm  -it --name gcc10.4 -v /home/aixinlover/workspace:/workspace -h gcc10.4 -w /workspace gcc:10.4 /bin/bash
 
 
 导出镜像

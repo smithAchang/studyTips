@@ -1,30 +1,29 @@
 
-[Building and Installing ACE](https://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/ACE/ACE-INSTALL.html)
-
+# 源代码
 git clone git@github.com:DOCGroup/ACE_TAO.git
 
-export ACE_ROOT=/path/to/ACE_wrappers
-export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
+# 编译
+[Building and Installing ACE](https://www.dre.vanderbilt.edu/~schmidt/DOC_ROOT/ACE/ACE-INSTALL.html)
+
+
+## 自动化编译脚本
+[Build Script](https://github.com/smithAchang/studyTips/tree/master/ace/compile/linux_build.sh)
 
 
 
-echo "ace/config-linux.h" > $ACE_ROOT/ace/config.h
-echo "include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU" > $ACE_ROOT/include/makeinclude/platform_macros.GNU
+# 如何作自测
 
-cd $ACE_ROOT
+Please follow these directions when adding a new test to
+$ACE_ROOT/tests:
 
-if [ ! -d MPC ]; then
- git clone https://github.com/DOCGroup/MPC.git MPC
-fi
+1.  Use appropriate ACE_START_TEST and ACE_END_TEST macros in main ()
 
-# 增加新文件，修改工程配置
-if [ add some new file ]; then
-  modify the $ACE_ROOT/ace/ace.mpc
-fi
+2.  Add new project entry to the tests.mpc file.
 
-$ACE_ROOT/bin/mwc.pl -type gnuace ACE.mwc
+3.  Add test to run_test.lst.
 
-cd $ACE_ROOT
 
-make
+
+cd $ACE_ROOT/tests
+./run_test.pl
 

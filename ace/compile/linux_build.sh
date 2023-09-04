@@ -6,36 +6,47 @@
 #  $ make CXX=g++_metric.sh
 #
 
-export ACE_ROOT=$(pwd)/..
+curDir=$(pwd)
 
-if [ ! -d $ACE_ROOT/ace ]; then
-   echo "You should exec this script in ACE_ROOT/bin dir !"
+if [ $# -gt 0 ]; then
+   compileDir=$1
+else
+   compileDir=$curDir
+fi
+
+if [ ! -d $compileDir/ace ]; then
+   echo "You should exec this script in ACE_ROOT dir or set the dir as input para !"
    exit 1
 fi
 
-
-if [ ! -d $ACE_ROOT/MPC ]; then
+if [ ! -d $compileDir/MPC ]; then
  echo "You must have MPC tool. Please git clone https://github.com/DOCGroup/MPC.git MPC"
  exit 1
 fi
 
-export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
+if [ ! -d $curDir/ace ]; then
+ # change work dir
+ pushd $ACE_ROOT
+fi
 
-echo "#ifndef ACE_HAS_IPV6
-#define ACE_HAS_IPV6
+pushd bin
+$ACE_ROOT/bin/mwc.pl -type gnuace $ACE_ROOT/ACE.mwc
+popd
+
+echo "
+#ifndef ACE_HAS_IPV6
+   #define ACE_HAS_IPV6
 #endif
 
 #include <ace/config-linux.h>
 " > $ACE_ROOT/ace/config.h
 
-
 echo 'include $(ACE_ROOT)/include/makeinclude/platform_linux.GNU' > $ACE_ROOT/include/makeinclude/platform_macros.GNU
 
-cd $ACE_ROOT
-
-$ACE_ROOT/bin/mwc.pl -type gnuace $ACE_ROOT/ACE.mwc
-
-cd $ACE_ROOT
+export ACE_ROOT=$compileDir
+export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
 
 # parallel compile
 make -j8
+
+popd
