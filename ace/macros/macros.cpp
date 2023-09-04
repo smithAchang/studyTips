@@ -1,7 +1,4 @@
 #include <ace/Log_Msg.h>
-#include <ace/Thread.h>
-
-
 
 int ACE_TMAIN (int argc, ACE_TCHAR *argv[])
 {
