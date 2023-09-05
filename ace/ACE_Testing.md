@@ -4,7 +4,8 @@
 先搜索是否存在已有测试文件
 
 $ACE_ROOT/../tests目录按照已有格式增加测试源文件
-
+ACE_START_TEST (ACE_TEXT ("$src_file_name"));
+ACE_START_TEST起始的宏的参数，注意保持与源文件相同名字，linux下测试时要产生输出才可以
 
 
 
@@ -17,6 +18,7 @@ project(RAW Socket Test) : acetest {
   }
 }
 
+> 按照测试文件的目录顺序排序，可以在`run_test.lst`发现合适的位置
 
 # windows下测试
 ## linux下生成 vc proj
@@ -29,7 +31,13 @@ $ACE_ROOT/bin/mwc.pl -type vs2019 -recurse -hierarchy -relative ACE_ROOT=/home/g
 
 ## 在vcproj中修改$(ACE_ROOT)
 
-暂时解决办法，直接修改
+暂时解决办法，直接修改$(ACE_ROOT)为..
 
 # linux下测试
+
++ cd $ACE_ROOT/tests
++ 修改run_test.lst，按照模板增加自己的测试用例
++ export LD_LIBRARY_PATH=$ACE_ROOT/lib:$LD_LIBRARY_PATH
++ 运行./run_test.pl
+
 
