@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # This simple script is used to gather compile time metrics.  You can use
 # it with make like this:
@@ -9,7 +9,10 @@
 curDir=$(pwd)
 
 if [ $# -gt 0 ]; then
-   compileDir=$1
+   # get the full path
+   pushd $1
+   compileDir=$(pwd)
+   popd
 else
    compileDir=$curDir
 fi
@@ -25,6 +28,7 @@ if [ ! -d $compileDir/MPC ]; then
 fi
 
 export ACE_ROOT=$compileDir
+echo "ACE_ROOT: $ACE_ROOT"
 
 if [ ! -d $curDir/ace ]; then
  # change work dir
