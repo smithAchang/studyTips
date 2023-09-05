@@ -11,3 +11,7 @@ bin/fuzz.pl
 # 编译通过
 + windows
 + linux
+
+# 规范
++ 删除多余空行
++ 缩进对齐
