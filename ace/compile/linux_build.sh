@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 # This simple script is used to build ACE
-#
+# Date: 2023-09-06
 #
 
 curDir=$(pwd)
