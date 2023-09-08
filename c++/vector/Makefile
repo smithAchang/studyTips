@@ -8,16 +8,17 @@ vpath %.h .
 vpath %.cpp .
 
 SRC=$(wildcard *.cpp)
-OBJS=$(patsubst %.cpp, %.o, $(SRC))
+OBJS=$(patsubst %.cpp,%.o, $(SRC))
 TARGET=a.out
 
 .PHONY: clean cleanObjs
 
 CCFLAGS:=-g3 -O0 -W -Wall -pipe -Wno-unused-variable -Wno-unused-parameter -fno-implicit-templates 
+LDFLAGS:=-lstdc++
 
 main: $(OBJS)
 	@echo "Link vector no-implicit-templates test program ..."
-	g++ $(OBJS) -o $(TARGET)
+	g++ $(OBJS) -o $(TARGET) $(LDFLAGS)
 
 # depend & nested
 $(OBJS): cleanObjs
