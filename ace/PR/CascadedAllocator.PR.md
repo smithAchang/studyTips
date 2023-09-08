@@ -9,4 +9,3 @@ If the `ACE` framework has the ability to malloc fixed-size chunks 'infinitely' 
 + combinate `ACE_Vector<T>` to enable the flexibility of allocator hierarchy 
 + all allocators forms a hierarchy with the allocator in lower level has `2 * n_chunks(upper level)`  capacity
 
-
