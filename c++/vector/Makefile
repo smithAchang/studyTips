@@ -1,3 +1,6 @@
+# suport
+#
+
 .PHONY: app main
 app: main
 
@@ -8,22 +11,29 @@ SRC=$(wildcard *.cpp)
 OBJS=$(patsubst %.cpp, %.o, $(SRC))
 TARGET=a.out
 
-.PHONY: clean main
-
+.PHONY: clean cleanObjs
 
 CCFLAGS:=-g3 -O0 -W -Wall -pipe -Wno-unused-variable -Wno-unused-parameter -fno-implicit-templates 
 
 main: $(OBJS)
-	@echo "build vector no-implicit-templates test program ..."
+	@echo "Link vector no-implicit-templates test program ..."
 	g++ $(OBJS) -o $(TARGET)
 
-# basic units
+# depend & nested
+$(OBJS): cleanObjs
 tmplinst.o:
+	@echo "Build $@ specially ..."
 	g++ $(strip $(subst -fno-implicit-templates, , $(CCFLAGS))) -c $(subst .o,.cpp, $@) -o $@
-
 %.o: %.cpp
+	@echo "Build $< to $@ ..."
 	g++ $(CCFLAGS) -c $< -o $@
-
-clean:
+	
+clean: 
+	@echo "Clean all obj & target ..."	
 	rm -rf $(OBJS) $(TARGET)
+	@echo "Finish clean all obj & target ..."	
 
+cleanObjs:
+	@echo "Clean all objs ..."	
+	rm -rf $(OBJS)
+	@echo "Finish clean all objs ..."	
