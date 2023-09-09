@@ -20,11 +20,11 @@ main: $(OBJS)
 
 # depend & nested
 $(OBJS): cleanObjs
-tmplinst.o:
-	@echo "Build $@ specially ..."
-	g++ $(strip $(subst -fno-implicit-templates, , $(CCFLAGS))) -c $(subst .o,.cpp, $@) -o $@
+tmplinst.o: tmplinst.cpp
+	@echo "Build $@ specially for implicit templates instantiation by removing -fno-implicit-templates compiler option ..."
+	g++ $(strip $(subst -fno-implicit-templates, , $(CCFLAGS))) -c $< -o $@
 %.o: %.cpp
-	@echo "Build $< to $@ ..."
+	@echo "Build $< to $@ with -fno-implicit-templates compiler option ..."
 	g++ $(CCFLAGS) -c $< -o $@
 	
 clean: 
