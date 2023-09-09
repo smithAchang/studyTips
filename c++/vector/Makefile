@@ -1,7 +1,7 @@
-# suport
+# big file for explicit template instantiation 
 #
 
-.PHONY: app main
+.PHONY: app main clean cleanObjs
 app: main
 
 vpath %.h .
@@ -11,14 +11,12 @@ SRC=$(wildcard *.cpp)
 OBJS=$(patsubst %.cpp,%.o, $(SRC))
 TARGET=a.out
 
-.PHONY: clean cleanObjs
-
 CCFLAGS:=-g3 -O0 -W -Wall -pipe -Wno-unused-variable -Wno-unused-parameter -fno-implicit-templates 
 LDFLAGS:=-lstdc++
 
 main: $(OBJS)
 	@echo "Link vector no-implicit-templates test program ..."
-	g++ $(OBJS) -o $(TARGET) $(LDFLAGS)
+	g++ -pipe $(OBJS) -o $(TARGET) $(LDFLAGS)
 
 # depend & nested
 $(OBJS): cleanObjs
