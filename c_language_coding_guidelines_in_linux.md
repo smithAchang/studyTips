@@ -1295,3 +1295,8 @@ tar xvf perf.data.tar.bz2 -C ~/.debug
 # 进行查看分析
 perf report
 ```
+
+
+
+# 持续更新
+[我在Linux中C语言编程经验总结](https://github.com/smithAchang/studyTips/edit/master/c_language_coding_guidelines_in_linux.md)
