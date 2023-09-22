@@ -16,6 +16,7 @@ V1.06     | 2023-09-09     | 增补字符串安全操作函数`strn*`和`sn*`系
 + 一级标题前使用三个空行
 + 正例和反例之间空两行
 + 代码示例内头尾无空行
++ 代码每行按照两个空格对齐
 
 
 
@@ -179,9 +180,9 @@ void f(int * intPtr)
 void main(void)
 {
   if(someConditionOk)
-   {
-     someFlag = TRUE;
-   }
+  {
+    someFlag = TRUE;
+  }
    
    ...
 }
@@ -193,9 +194,9 @@ void main(void)
 void main(void)
 {
   if(someConditionOk)
-     someFlag = TRUE;
+    someFlag = TRUE;
 
-   ...
+  ...
 }
 ```
 
@@ -244,8 +245,8 @@ void main(void)
 ```c
 if(likely(conditiontest))
 {
- // most hit code
- ...
+  // most hit code
+  ...
 }
 else
 {
@@ -293,13 +294,13 @@ int f(int * intPtr)
 ```c
 int f(int* intPtr)
 {
- if(NULL == intPtr)
- {
-   return errorValue;
- }
+  if(NULL == intPtr)
+  {
+    return errorValue;
+  }
 
- // normal flow
- ...
+  // normal flow
+  ...
 }
 ```
 
@@ -568,7 +569,7 @@ void f()
 {
   if(condition == TRUE)
   {
-   return flow_end;
+    return flow_end;
   }
   else
   {
@@ -711,7 +712,8 @@ offset     = offset + 1;
 ```c
 typedef struct tagIPv4_Addr
 {
-  union {
+  union 
+  {
     unsigned char abAddr[4];
     unsigned int dwAddr;
   };
@@ -887,6 +889,54 @@ extern "C" {
 ...
 ```
 
+#### 头文件内声明顺序
+
+**正例**
+```c
+#ifndef __XX_YY_h
+#define __XX_YY_h
+
+// 包含系统或第三方不可变头文件,用惯用的尖括号包括
+#include <...>
+...
+
+// 包含模块内部依赖头文件
+#include "..."
+
+// 模块自身的声明
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+  // 常量宏
+  #define  CONST_MACRO_QUEUE_MAX_LEN  (int)16
+  ...
+
+  // 枚举值
+  ...
+
+  // 类型定义 typedefs or structs
+  ...
+
+  // 全局变量或静态变量
+
+  // 宏函数
+  ...
+
+  // 普通函数
+  ...
+
+#ifdef  __cplusplus
+ }
+#endif
+
+#endif
+```
+
+> 原则上应该按照模块自身搭建顺序，作为头文件内条目的声明顺序，以体现元素间的依赖关系
+
+> 此处着重`宏方法`应该与普通方法在同一区域中，因为它的操作对象和普通函数一样为它前面声明的元素
+
 ### 稳定API设计技巧利用上下文对象指针和操作函数
 
 **正例**
@@ -931,11 +981,11 @@ void f(int indicator)
 
   if(indicator > someValue)
   {
-   ...
+    ...
   }
   else
   {
-   ...
+    ...
   }
 
 }
