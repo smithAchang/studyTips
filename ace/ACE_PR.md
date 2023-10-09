@@ -6,6 +6,9 @@
 + windows
 > 在linux下利用脚本生成windows的工程文件$ACE_ROOT/bin/mwc.pl -type vs2019 -recurse -hierarchy -relative ACE_ROOT=$ACE_ROOT -relative TAO_ROOT=$ACE_ROOT/../TAO -workers 20 -name_modifier "*_vs2019"
 
+# wchar
+在$ACE_ROOT/ace/config.h中定义宽字符看看是否有编译异常
+#define ACE_USES_WCHAR
 
 # 社区规范
 + 删除回车符前的多余空格，可以用fuzz.pl检查，以避免PR被自动流程拒绝
@@ -15,8 +18,12 @@
  
 + 删除多于两行的多余空行
 + `2 space`缩进对齐，除非特别的多参数函数调用
++ right const 变量约束
++ 指针变量，*与名称连在一起
++ 函数调用，函数名和参数之间的空格，符合Clang-Format
 + 其他符合已有代码的格式，可以进行参考
 + 编程禁止使用C语言类型强制指针转换
++ 类成员变量加`this`指针，可以用来区分变量与成员field
 
 
 # 工具检查
