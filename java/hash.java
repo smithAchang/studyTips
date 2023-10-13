@@ -91,6 +91,19 @@ unsigned int BKDRHash(char*str)
        
     return(hash % M);
 }
+
+// DJB Hash Function 
+unsigned int DJBHash(char*str)
+{
+    unsigned int hash=5381 ;
+       
+    while(*str)
+    {
+        hash+=(hash<<5)+(*str++);
+    }
+       
+    return(hash % M);
+}
    
 // SDBM Hash Function 
 unsigned int SDBMHash(char*str)
@@ -100,19 +113,6 @@ unsigned int SDBMHash(char*str)
     while(*str)
     {
         hash=(*str++)+(hash<<6)+(hash<<16)-hash ;
-    }
-       
-    return(hash % M);
-}
-   
-// DJB Hash Function 
-unsigned int DJBHash(char*str)
-{
-    unsigned int hash=5381 ;
-       
-    while(*str)
-    {
-        hash+=(hash<<5)+(*str++);
     }
        
     return(hash % M);

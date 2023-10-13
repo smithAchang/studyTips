@@ -13,6 +13,22 @@
         git push origin local_branch:remote_branch
 
 ---
+.git/config文本文件被破坏掉，导致git pull解析不正确，例如，在虚拟机中
+
+[remote "origin"]
+        url = git@github.com:smithAchang/ACE_TAO.git
+        fetch = +refs/heads/*:refs/remotes/origin/*
+[branch "master"]
+        remote = origin
+        merge = refs/heads/master
+[branch "cascadedAllocator"]
+        remote = origin
+        merge = refs/heads/cascadedAllocator
+[branch "rawSocket"]
+        remote = origin
+        merge = refs/heads/rawSocket
+
+---
 # 在本地创建分支dev并切换到该分支
 git fetch origin ringQueue
 
