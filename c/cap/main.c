@@ -33,7 +33,7 @@ int main(void)
         char szFailMessage[512];
         snprintf(szFailMessage, sizeof(szFailMessage), "%s check raw socket cap in failure! errorDesc", szTips);
         perror(szFailMessage);
-        exit(1);
+        goto wait;
     } 
     else 
     {
@@ -41,5 +41,19 @@ int main(void)
     }
 
     close(fd);
+
+wait:
+    if(pid != 0)
+    {
+       const unsigned int seconds = 1;
+       sleep(seconds);
+       printf("%s enter any key to exit ...\n", szTips);      
+       getchar();    
+    }
+    else
+    {
+        printf("%s will exit!\n", szTips);
+    }
+    
     return 0;
 }
