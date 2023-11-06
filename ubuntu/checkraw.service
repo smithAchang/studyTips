@@ -1,0 +1,16 @@
+[Unit]
+Description=Check raw socket privilege Using RAW socket
+After=network.target
+
+[Service]
+Type=simple
+User=cap
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN
+ExecStart=/usr/bin/checkraw -s
+ExecStop=/bin/kill -HUP $MAINPID
+TimeoutStartSec=360
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -11,8 +11,47 @@
  */
 #define SHOULD_IPPROTO_SCTP 132
 
-int main(void)
+void usage(char* argv[])
 {
+    char szContinueSpaces[128];
+    memset(szContinueSpaces, ' ', sizeof(szContinueSpaces) - 1);
+    szContinueSpaces[sizeof(szContinueSpaces) - 1] = '\0';
+
+    char szOptionIndentFormatStr[128];
+    char szUsageHeader[128];
+    char szOptionIndent[128];
+    snprintf(szUsageHeader, sizeof(szUsageHeader), "Usage: %s", argv[0]);
+    /*minwidth, maxwidth*/
+    const size_t  prefixLen = strlen(szUsageHeader);
+    snprintf(szOptionIndentFormatStr, sizeof(szOptionIndentFormatStr), "%%%zu.%zus", prefixLen, prefixLen);
+    snprintf(szOptionIndent, sizeof(szOptionIndent), szOptionIndentFormatStr, szContinueSpaces);
+    fprintf(stderr, "Usage: %s [-s]\n"
+                    "%s with no option,proc will wait any key before exit\n"
+                    "%s -s indicate proc to run infinitly\n", argv[0], szOptionIndent, szOptionIndent);
+}
+
+int main(int argc, char* argv[])
+{
+    int serviceFlag = 0, aFlagValue = 0;
+    int opt;
+    while((opt = getopt(argc, argv, "s")) != -1)
+    {
+        switch(opt)
+        {
+            case 's':
+                printf("has set -s flag!\n");
+                serviceFlag = 1;
+                break;
+            case 'a':
+                aFlagValue = atoi(optarg);
+                printf("has set -a value option with value: %d\n", aFlagValue);
+                break;
+            default: /* '?' */
+                usage(argv);
+                return 1;
+        }
+    }
+    
     char szTips[256] = {};
     pid_t pid = fork();
     if(pid == 0)
@@ -43,17 +82,38 @@ int main(void)
     close(fd);
 
 wait:
-    if(pid != 0)
+    if(serviceFlag == 0)
     {
-       const unsigned int seconds = 1;
-       sleep(seconds);
-       printf("%s enter any key to exit ...\n", szTips);      
-       getchar();    
+        if(pid != 0)
+        {
+            const unsigned int seconds = 1;
+            sleep(seconds);
+            printf("Parent role, enter any key to exit ...\n");      
+            getchar();    
+        }
+        else
+        {
+            printf("Child will exit!\n");
+        }
     }
     else
     {
-        printf("%s will exit!\n", szTips);
-    }
+        unsigned int count = 0;
+        if(pid != 0)
+        {
+            while(1)
+            {
+                printf("Parent is running as service, count: %u ...\n", count);
+                const unsigned int seconds = 1;
+                sleep(seconds);            
+            }
+        }
+        else
+        {
+            printf("Child will exit, only Parent is running as service!\n");
+        }
+    }        
+    
     
     return 0;
 }
