@@ -2,8 +2,8 @@
 #
 
 telnetServer=127.0.0.1
-telnetPort=5555
-preSteps=("username" "password")
+telnetPort=23
+preSteps=("telnetuser" "888888")
 postSteps=("exit")
 steps=()
 
@@ -31,7 +31,7 @@ function execSteps()
 
 # Main
 curl -m 1 http://$telnetServer:$telnetPort &> /dev/null
-if [ $? -ne 0 ]; then
+if [ $? -eq 7 ]; then
   echo "Can't connect to server!"
   exit 1
 fi
@@ -48,6 +48,9 @@ fi
 case "$1" in
   "show")
    steps=("${preSteps[@]}")
+
+   steps+=("ls -l")
+   
    steps+=("${postSteps[@]}")
    execSteps
   ;;
@@ -55,4 +58,3 @@ case "$1" in
   echo "operation type error, please input operation type in (show)!"
   ;;
 esac
-
