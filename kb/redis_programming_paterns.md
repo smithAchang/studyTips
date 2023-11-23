@@ -1,4 +1,5 @@
 
+
 # 缘由
 以前只是接触过`redis`，只有最近才比较深入研究了下，觉得有几个重要的概念可以积累出来，以利于帮助理解`redis` :)
 
@@ -7,35 +8,48 @@
 # 特点
 ## 字符串二进制安全
 `redis`的**keystore**是基于`key:value`的。
-而`value`被对待成特别的*字符串*结构体处理，`redis`中的字符串概念显著区别于`C`语言字符串，它是二进制安全的，也就是说可以存储任何二进制的串！
+而`value`被对待成特别的*字符串*结构体进行处理，但`redis`中的字符串概念显著区别于`C`语言字符串，它是二进制安全的，也就是说可以存储任何二进制的串！
 
 > 在`C`语言中，普通的字符串如果遇到字符'\0'或二进制的单字节零值，均会被认为是字符串的结尾
 > 
-> 但在，`redis`中是基于`memcpy | memcmp ..`等`mem*`的操作，带有明确的长度的参数，进行`redis`系统内的字符串操作，所以，可以保证字符串的二进制安全。
+> 但在，`redis`中是基于`memcpy | memcmp ..`等`mem*`的API接口的操作，带有明确的长度的参数，进行`redis`系统内的字符串操作，所以，可以保证字符串的二进制安全。
 
 ### 如何插入二进制数据
 
-+ `redis-cli`和'lua script'
-> 如果要存储二进制数据，则需要将要存储的二进制数据编码为**hex**字符串
++ `redis-cli`和`lua script`
+> 如果要存储二进制数据，则需要将要存储的二进制数据编码为**hex**或**base64**字符串，需要一个编解码的过程，建议使用**base64**字符串
 ```shell
 set key "{\x45\x12\x32\x13}"
+# 查看长度，长度并非4个字节长度，体现为编码字符串的长度
+# 使用‘hex’表示，不如直接使用base64编码
+strlen key
 ```
 ```c++
-redis.pcall('set', 'key', '{\\x45\\x12\\x32\\x13}')
+redis.pcall('set', 'key', base64Str)
 ```
 
 + `hiredis`客户端库
-> 用`hiredis`库可以使用`%b`格式化符，特别地传入地址指针和长度参数，可以将二进制流存储到`redis`
+> 用`hiredis`库可以使用`%b`格式化符，特别地传入首地址指针和长度参数，就可以将二进制流存储到`redis`
+```c++
+uint16_t u16Value = 0x1234;
+redisCommand(context, "SET %s %b", "Hello", &u16Value, sizeof(u16Value))
+```
+```shell
+# 查看长度，长度为2个字节，体现为原始类型长度
+strlen "Hello"
+```
 
-> 如果是`%s`字符串，`hiredis`则根据`strlen`来自主计算长度
+>> 用`hiredis`库可以真正支持二进制写入
 
 ## lua 脚本
 + 高效
-> 因为`lua script`在`redis`服务器端执行，可以有效避免那些需要`redis-cli`一次往返，才能够实施的后续动作
+> 因为`lua script`在`redis`服务器端执行，可以有效避免那些使用`redis-cli`需要一次往返，才能够实施的后续动作
 + 原子粒度
-> `lua script`脚本提供了多步操作很好的原子性操作粒度
+> `lua script`脚本提供了多步操作很好的原子性操作粒度，而且往往比事务语法更快、更简单，推荐使用
 
-### lua脚本调试、
+> [transactions](https://redis.io/docs/interact/transactions/)
+
+### lua脚本调试
 ```shell
 # 注意key和参数arg之间的空格和逗号
 ./redis-cli --ldb --eval /tmp/script.lua mykey somekey , arg1 arg2
@@ -46,7 +60,9 @@ redis.pcall('set', 'key', '{\\x45\\x12\\x32\\x13}')
 
 ## 批量处理(Bulk loading)
 
-+ `redis-cli`
+*批量处理，可以有效减少网络IO的损耗，强烈建议使用*
+
++ `redis-cli` **pipelining**
 ```shell
 
 echo "
@@ -84,7 +100,7 @@ freeReplyObject(reply);
 SET resource_name my_random_value NX PX 30000
 ```
 
->  + 需要着重指出的是value是随机值，如果非自身则用lua脚本判断不能取消
+>  + 需要着重指出的是my_random_value是带有唯一性的值，最好满足随机性，如果非自身，则用lua脚本判断不能**del**
 >  + NX指定覆盖条件
 >  + PX设定超时毫秒数
 
@@ -99,5 +115,3 @@ SET resource_name my_random_value NX PX 30000
 
 # 参考
 [Redis programming patterns](https://redis.io/docs/manual/patterns/)
-
-
