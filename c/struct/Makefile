@@ -8,6 +8,6 @@ EXT_CFLAG_NO_WARINGS += -Wno-unused-function
 
 test: main.c
 	@echo "create Preprocess only; do not compile, assemble or link result..."
-	gcc $(CCFLAGS) $(EXT_NO_WARNINGS) -E $^ -o $^.preprocess.txt 
+	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) -E $^ -o $^.preprocess.txt 
 	@echo "feature test program ..."
-	gcc $(CCFLAGS) $(EXT_NO_WARNINGS) $^ $(LDFLAGS)
+	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) $^ $(LDFLAGS)

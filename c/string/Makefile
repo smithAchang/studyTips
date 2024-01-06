@@ -12,6 +12,6 @@ vpath %.c .
 
 string_compile_cat: string_compile_cat.c
 	@echo "create Preprocess only; do not compile, assemble or link result..."
-	gcc $(CCFLAGS) $(EXT_NO_WARNINGS) -E $^ -o $^.preprocess.txt 
+	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) -E $^ -o $^.preprocess.txt 
 	@echo "build string_compile_cat usage test program ..."
-	gcc $(CCFLAGS) $(EXT_NO_WARNINGS) $^ -o $@ $(LDFLAGS)
+	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) $^ -o $@ $(LDFLAGS)

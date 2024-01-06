@@ -12,4 +12,4 @@ vpath %.c .
 
 voidptr: voidptr.c
 	@echo "build void* ptr usage test program ..."
-	gcc $(CCFLAGS) $(EXT_NO_WARNINGS) $^ -o $@ $(LDFLAGS)
+	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) $^ -o $@ $(LDFLAGS)
