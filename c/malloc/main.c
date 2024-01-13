@@ -14,7 +14,7 @@ int main(int argc , char* argv[])
 
   int sleeptime = 3;
 
-  if(argc > 2)
+  if(argc > 1)
   {
     sleeptime = atoi(argv[1]);
   }
@@ -25,10 +25,11 @@ int main(int argc , char* argv[])
   printf("You can see the program's VIRT&RES&%%MEM statistics using `top` command\n\n"
          "The initial VIRT&RES statistics must be small\n"
          "Enter any key to continue to malloc a big memory area\n");
-
   int c = getchar();
+
   const size_t nBigSize = 1*1024*1024*1024;
   char* const pbBigMem = malloc(nBigSize);
+
   if(pbBigMem == NULL)
   {
     perror("Malloc a big memory");
@@ -38,12 +39,12 @@ int main(int argc , char* argv[])
   printf("\nThe VIRT statistic is changed after malloc\n");
 
   char* const pbBigMemEnd = pbBigMem + nBigSize;
-
   char* cursor = pbBigMem;
+
   do
   {
-     // Access the memory to cause physical memory to be assigned
-     for(size_t i=0; i < (100*1024*1024) && cursor < pbBigMemEnd; ++i, ++cursor)
+     // Access the memory to cause the physical memory to be assigned
+     for(size_t i = 0; i < (100*1024*1024) && cursor < pbBigMemEnd; ++i, ++cursor)
       {
         // one by one
         cursor[0] = (char)i;
@@ -51,10 +52,8 @@ int main(int argc , char* argv[])
 
       printf("The RES statistic is changed after the memory is really scaned one by one, cursor: %p\n", cursor);
       sleep(sleeptime);
-
   }
   while(cursor < pbBigMemEnd);
-
 
   printf("\n\nExit from program !\n");
   return 0;
