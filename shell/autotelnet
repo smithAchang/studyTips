@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+
+set timeout 5
+
+set host [lindex $argv 0]
+
+spawn telnet $host 60000
+
+expect "Password:"
+send "zte\r"
+
+interact
