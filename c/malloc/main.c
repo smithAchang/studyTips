@@ -6,6 +6,11 @@
 #include <limits.h>
 #include <stdint.h>
 
+void readAnyKey()
+{
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF); 	
+}
 
 int main(int argc , char* argv[])
 {
@@ -24,11 +29,11 @@ int main(int argc , char* argv[])
   
   printf("You can see the program's VIRT&RES&%%MEM statistics using `top` command\n\n"
          "The initial VIRT&RES statistics must be small\n"
-         "Enter any key to continue to malloc a big memory area\n");
-  int c = getchar();
+         "Enter any key to continue to malloc a big memory area ...\n");
+  readAnyKey();
 
   const size_t nBigSize = 1*1024*1024*1024;
-  char* const pbBigMem = malloc(nBigSize);
+  char* const pbBigMem  = malloc(nBigSize);
 
   if(pbBigMem == NULL)
   {
@@ -54,6 +59,11 @@ int main(int argc , char* argv[])
       sleep(sleeptime);
   }
   while(cursor < pbBigMemEnd);
+  
+  free(pbBigMem);
+  printf("You can see the program's VIRT&RES statistics changed after big memroy freed\n"
+         "Enter any key to exit ...\n");
+  readAnyKey();
 
   printf("\n\nExit from program !\n");
   return 0;
