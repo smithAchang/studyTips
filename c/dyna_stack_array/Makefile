@@ -1,13 +1,9 @@
 .PHONY: app dynaArray
 app: dynaArray
 
-CCFLAGS := -g3 -O0 -W -Wall -std=gnu11 -pipe
-LDFLAGS := -lpthread
-EXT_CFLAG_NO_WARINGS = -Wno-int-to-pointer-cast -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-unused-variable
-
 vpath %.h .
 vpath %.c .
 
 dynaArray: dynaArray.c
 	@echo "build dynamic stack array usage program ..."
-	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) $^ -o $@ $(LDFLAGS)
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe -Wno-int-to-pointer-cast -Wno-missing-field-initializers -Wno-unused-but-set-variable -Wno-pointer-to-int-cast -Wno-unused-variable -Wno-unused-parameter $^ -o $@ 

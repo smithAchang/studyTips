@@ -1,15 +1,11 @@
 .PHONY: app macro
 app:  macro
 
-CCFLAGS := -g3 -O0 -W -Wall -std=gnu11 -pipe
-LDFLAGS := -lpthread
-EXT_CFLAG_NO_WARINGS = -Wno-int-to-pointer-cast -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-unused-variable
-
 vpath %.h .
 vpath %.c .
 
 macro: macro.c
 	@echo "create Preprocess only; do not compile, assemble or link result..."
-	gcc $(CCFLAGS)  $(EXT_CFLAG_NO_WARINGS) -E $^ -o $^.preprocess.txt
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe -Wno-int-to-pointer-cast -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-unused-variable -E $^ -o $^.preprocess.txt
 	@echo "build macro test program ..." 
-	gcc $(CCFLAGS) $(EXT_CFLAG_NO_WARINGS) $^ -o $@ $(LDFLAGS)
+	gcc -g3 -O0 -W -Wall -std=gnu11 -pipe -Wno-int-to-pointer-cast -Wno-unused-parameter -Wno-pointer-to-int-cast -Wno-unused-variable $^ -o $@ 
