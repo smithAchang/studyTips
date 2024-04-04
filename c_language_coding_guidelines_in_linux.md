@@ -1434,6 +1434,17 @@ End with a line saying just "end".
 ```bash
 valgrind --leak-check=full --track-origins=yes ./someProc [para...]
 ```
+> 适合全面、低速测试场景，而且被测试应用不需要出具特殊编译版本
+
+## AddressSanitizer辅助定位
+
+```bash
+   gcc -O0 -g -pipe -fsanitize=address main.c ...
+```
+
+> 利用GCC的编译功能扩展选项，开启编译器自带的内存检查工具`asan`库，进行检查内存错误
+> 此种手段适合需要快速运行的场合，但需要出定制编译版本
+> 更高的编译器版本携带更多的`-fsanitize=*`功能选项，建议使用高版本编译器
 
 
 
