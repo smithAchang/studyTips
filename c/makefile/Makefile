@@ -63,13 +63,13 @@ $(BIN):
 	$(CC) $^ -o $@ $(LDFLAGS)
 	@echo "Elapsed time: $(shell expr $(NOW_TIME) - $(CONST_START_TIME)) seconds"
 
-# 模糊匹配规则
+# 静态模糊匹配规则
 $(OBJS): %.o: %.c
 	@echo "Begin compile $< ..."
 	$(CC) $(CFLAGS) -c $< -o $@
 	@echo "Has finished compiling $<"
 
 clean:
-	@echo "Begin clean old resources ..."
+	@echo "$@ target begin clean old resources ..."
 	$(RM) *.o $(BIN)
-	@echo "Has finished clean old resources"
+	@echo "$@ target has finished clean old resources"
