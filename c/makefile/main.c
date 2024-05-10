@@ -3,12 +3,12 @@
 
 extern int foo();
 
-int main(int argc , char* argv[])
+int        main(int argc, char *argv[])
 {
-   #ifdef _DEBUG
-   printf("DEBUG VERSION Running ...\n");  
-   #endif
+         #ifdef _DEBUG
+  printf("DEBUG VERSION Running ...\n");
+         #endif /* ifdef _DEBUG */
 
-   printf("foo: %d\n", foo());
-   return 0;
+  printf("foo: %d\n", foo());
+  return 0;
 }

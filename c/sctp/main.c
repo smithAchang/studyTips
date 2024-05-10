@@ -12,17 +12,17 @@
 
 int main(void)
 {
-    int fd;
+  int fd;
 
-    fd = socket(PF_INET, SOCK_STREAM, SHOULD_IPPROTO_SCTP);
+  fd = socket(PF_INET, SOCK_STREAM, SHOULD_IPPROTO_SCTP);
 
-    if (fd <= 0) {
-	perror("checksctp");
-	exit(1);
-    } else {
-	fprintf(stderr, "SCTP supported\n");
-    }
+  if (fd <= 0) {
+    perror("checksctp");
+    exit(1);
+  } else {
+    fprintf(stderr, "SCTP supported\n");
+  }
 
-    close(fd);
-    return 0;
+  close(fd);
+  return 0;
 }

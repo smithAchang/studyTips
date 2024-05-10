@@ -22,22 +22,22 @@ TRet f(unsigned int size)
   int c;
   TRet rc = {};
 
-  a[0] = 1;
-  a[1] = 10;
-  a[size-1] = 100;
+  a[0]        = 1;
+  a[1]        = 10;
+  a[size - 1] = 100;
 
-  b    = 2; 
-  c    = 3; 
+  b = 2;
+  c = 3;
 
   return rc;
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
   printf("Hello world !\n");
-  
+
   TRet rc = f(8);
-  
+
   printf("Exit from program !\n");
   return 0;
 }

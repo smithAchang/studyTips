@@ -3,7 +3,7 @@
 
 extern int foo();
 
-int foo()
+int        foo()
 {
-   return 100;
+  return 100;
 }
