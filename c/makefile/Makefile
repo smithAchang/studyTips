@@ -43,7 +43,7 @@ all: clean $(OBJS)
 # 声明依赖关系
 $(OBJS): clean
 
-# 模糊匹配规则
+# 静态模糊匹配规则
 $(OBJS): %.o: %.c
 	$(CC) -c $< -o $@
 
