@@ -5,35 +5,36 @@
 
 
 #ifndef  likely
-  #define  likely(x) __builtin_expect(!!(x), 1)
-#endif
+        #define  likely(x) __builtin_expect(!!(x), 1)
+#endif /* ifndef  likely */
 
 #ifndef  unlikely
-  #define  unlikely(x) __builtin_expect(!!(x), 0)
-#endif
+        #define  unlikely(x) __builtin_expect(!!(x), 0)
+#endif /* ifndef  unlikely */
 
 
-#define PARA_CHECK_RETRUN_GNU(expr, rc, format, args...) do{\
-  if(expr)\
-  {\
-   printf(format"\n", ##args);\
-  }\
-  return rc; \
-}while(0)
+#define PARA_CHECK_RETRUN_GNU(expr, rc, format, args ...) \
+        do{ \
+          if (expr) \
+          { \
+            printf(format "\n", ## args); \
+          } \
+          return rc; \
+        }while (0)
 
-#define PARA_CHECK_NORETRUN_GNU(expr, format, args...) PARA_CHECK_RETRUN_GNU(expr, , format, ##args)
+#define PARA_CHECK_NORETRUN_GNU(expr, format, args ...) PARA_CHECK_RETRUN_GNU(expr, , format, ## args)
 
 
-#define PARA_CHECK_RETRUN_C99(expr, rc, format, ...) do{\
-  if(expr)\
-  {\
-   printf(format"\n", ##__VA_ARGS__);\
-  }\
-  return rc; \
-}while(0)
+#define PARA_CHECK_RETRUN_C99(expr, rc, format, ...) \
+        do{ \
+          if (expr) \
+          { \
+            printf(format "\n", ## __VA_ARGS__); \
+          } \
+          return rc; \
+        }while (0)
 
-#define PARA_CHECK_NORETRUN_C99(expr, format, ...) PARA_CHECK_RETRUN_GNU(expr, , format, ##__VA_ARGS__)
-
+#define PARA_CHECK_NORETRUN_C99(expr, format, ...) PARA_CHECK_RETRUN_GNU(expr, , format, ## __VA_ARGS__)
 
 
 void f_void_has_no_print_para_ret()
@@ -41,16 +42,16 @@ void f_void_has_no_print_para_ret()
   int b = 0;
 
 
-  PARA_CHECK_NORETRUN_GNU(b == 1, "hello %s additional para: %d", __func__, b);
-  PARA_CHECK_NORETRUN_GNU(b == 1, "hello no additional para");
+  PARA_CHECK_NORETRUN_GNU(b == 1,           "hello %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_GNU(b == 1,           "hello no additional para");
 
-  PARA_CHECK_NORETRUN_GNU(likely(b == 1), "hello %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_GNU(likely(b == 1),   "hello %s additional para: %d", __func__, b);
   PARA_CHECK_NORETRUN_GNU(unlikely(b == 1), "hello no additional para");
 
-  PARA_CHECK_NORETRUN_C99(b == 1, "hello c99 %s additional para: %d", __func__, b);
-  PARA_CHECK_NORETRUN_C99(b == 1, "hello c99 no additional para");
+  PARA_CHECK_NORETRUN_C99(b == 1,           "hello c99 %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_C99(b == 1,           "hello c99 no additional para");
 
-  PARA_CHECK_NORETRUN_C99(likely(b == 1), "hello c99 %s additional para: %d", __func__, b);
+  PARA_CHECK_NORETRUN_C99(likely(b == 1),   "hello c99 %s additional para: %d", __func__, b);
   PARA_CHECK_NORETRUN_C99(unlikely(b == 1), "hello c99 no additional para");
 
   PARA_CHECK_NORETRUN_GNU(b == 0, "hello no additional para");
@@ -75,13 +76,13 @@ bool f_bool_has_no_print_para_ret()
   int b = 0;
 
 
-  PARA_CHECK_RETRUN_GNU(b == 1,   true,    "hello %s additional para: %d", __func__, b);
-  PARA_CHECK_RETRUN_GNU(b == 1,   false, "hello no additional para");
+  PARA_CHECK_RETRUN_GNU(b == 1, true,  "hello %s additional para: %d", __func__, b);
+  PARA_CHECK_RETRUN_GNU(b == 1, false, "hello no additional para");
 
-  PARA_CHECK_RETRUN_C99(b == 1,   true,  "hello c99 %s additional para: %d", __func__, b);
-  PARA_CHECK_RETRUN_C99(b == 1,   false, "hello c99 no additional para");
+  PARA_CHECK_RETRUN_C99(b == 1, true,  "hello c99 %s additional para: %d", __func__, b);
+  PARA_CHECK_RETRUN_C99(b == 1, false, "hello c99 no additional para");
 
-  PARA_CHECK_RETRUN_GNU(b == 0,   false, "hello no additional para");
+  PARA_CHECK_RETRUN_GNU(b == 0, false, "hello no additional para");
 }
 
 bool f_bool_has_print_para_ret()
@@ -98,7 +99,6 @@ bool f_bool_has_print_para_ret_c99()
   PARA_CHECK_RETRUN_C99(b == 0, true, "hello c99 %s additional para: %d", __func__, b);
 }
 
-
 int main(void)
 {
   printf("hello world ...\n\n");
@@ -112,7 +112,7 @@ int main(void)
   f_bool_has_no_print_para_ret();
   f_bool_has_print_para_ret();
   f_bool_has_print_para_ret_c99();
-  
+
 
   printf("\nwill exit!\n");
   return 0;

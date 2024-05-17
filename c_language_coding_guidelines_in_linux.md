@@ -11,6 +11,7 @@ V1.05     | 2023-08-30     | 增补`-pipe`的GCC常用编译选项，可以加�
 V1.06     | 2023-09-09     | 增补字符串安全操作函数`strn*`和`sn*`系列编码建议；使用宏自动生成代码消除重复的编码技巧
 V1.07     | 2023-11-04     | 增补代码风格的要求；增补enum使用经验、模块全局/静态变量提供结构体封装的编程经验
 V1.08     | 2023-11-25     | 增补void*作为通用参数容器
+V1.09     | 2024-04-04     | 增补给定值初始化GNU编译器扩展和`-fsanitize=address`和`-fsanitize=*`等编译选项
 
 
 
@@ -551,11 +552,16 @@ base                rd_ptr            wr_ptr                         capacity
 
 **正例**
 ```c
+// default is OK
+static unsigned char s_buffer[512];
+static unsigned char s_bufferFF[512] = {[0 ... (sizeof(s_bufferFF) - 1)] = 0xFF};
+
 void f()
 {
   struct A a = {};
   unsigned char buffer[512] = {};
- 
+  unsigned char bufferFF[512] = {[0 ... (sizeof(bufferFF) - 1)] = 0xFF};
+
   // some code using the above vars
   ...
 }
@@ -567,10 +573,12 @@ void f()
 void f()
 {
   struct A a ;
-  unsigned char buffer[512] ;
- 
+  unsigned char buffer[512];
+  unsigned char bufferFF[512];
+
   memset(&a, 0, sizeof(a));
   memset(buffer, 0, sizeof(buffer));
+  memset(bufferFF, oxFF, sizeof(bufferFF));
 
   // some code using the above vars
   ...
@@ -579,7 +587,8 @@ void f()
 
 > + 空花括号清零简洁、美观、高效
 > + 小块内存清零应避免调用函数的代价。在C23 C语言建议标准中，已作为标准建议替代memset
-> + 空花括号和花括号带零，适应不同的情况；空花括号清零应对结构体和结构体内含有结构体成员的复杂结构体
+> + 空花括号和花括号带零，适应不同的情况；空花括号清零可以应对结构体和结构体内含有结构体成员的复杂结构体
+> + 可以使用GNU编译器扩展的`array range intializer [first ... last] = value`将数组元素清理为特定值，代替[memset](https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html)
 
 #### 建议零和-1同时作为非法值
 
@@ -1425,6 +1434,17 @@ End with a line saying just "end".
 ```bash
 valgrind --leak-check=full --track-origins=yes ./someProc [para...]
 ```
+> 适合全面、低速测试场景，而且被测试应用不需要出具特殊编译版本
+
+## AddressSanitizer辅助定位
+
+```bash
+   gcc -O0 -g -pipe -fsanitize=address main.c ...
+```
+
+> 利用GCC的编译功能扩展选项，开启编译器自带的内存检查工具`asan`库，进行检查内存错误
+> 此种手段适合需要快速运行的场合，但需要出定制编译版本
+> 更高的编译器版本携带更多的`-fsanitize=*`功能选项，建议使用高版本编译器
 
 
 

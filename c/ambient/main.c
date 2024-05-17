@@ -19,15 +19,18 @@
 #include <linux/capability.h>
 #include <cap-ng.h>
 
-static void set_ambient_cap(int cap) {
+static void set_ambient_cap(int cap)
+{
   capng_get_caps_process();
-  
+
   int rc = capng_update(CAPNG_ADD, CAPNG_INHERITABLE, cap);
+
   if (rc) {
     printf("Cannot add inheritable cap\n");
     exit(2);
   }
   capng_apply(CAPNG_SELECT_CAPS);
+
   /* Note the two 0s at the end. Kernel checks for these */
   if (prctl(PR_CAP_AMBIENT, PR_CAP_AMBIENT_RAISE, cap, 0, 0)) {
     perror("Cannot set ambient cap");
@@ -35,7 +38,8 @@ static void set_ambient_cap(int cap) {
   }
 }
 
-void usage(const char * me) {
+void usage(const char *me)
+{
   printf("Usage: %s [-c caps] new-program [new-args]\n", me);
   exit(1);
 }
@@ -47,12 +51,15 @@ int default_caplist[] = {
   -1
 };
 
-int * get_caplist(const char * arg) {
+int * get_caplist(const char *arg)
+{
   int i = 1;
-  int * list = NULL;
-  char * dup = strdup(arg), * tok;
+  int *list = NULL;
+  char *dup = strdup(arg), *tok;
+
   for (tok = strtok(dup, ","); tok; tok = strtok(NULL, ",")) {
     list = realloc(list, (i + 1) * sizeof(int));
+
     if (!list) {
       perror("out of memory");
       exit(1);
@@ -64,34 +71,30 @@ int * get_caplist(const char * arg) {
   return list;
 }
 
-int main(int argc, char ** argv) {
+int main(int argc, char **argv)
+{
+  if (argc < 2) usage(argv[0]);
 
-  if (argc < 2)
-    usage(argv[0]);
+  int *caplist = NULL;
+  int index = 1;                                // argv index for cmd to start
 
-  int * caplist = NULL;
-  int index = 1; // argv index for cmd to start
   if (strcmp(argv[1], "-c") == 0) {
-    if (argc <= 3) {
+    if (argc <= 3)
       usage(argv[0]);
-    }
     caplist = get_caplist(argv[2]);
     index = 3;
   }
-  
-  if (!caplist) {
-    caplist = (int * ) default_caplist;
-  }
-  
+
+  if (!caplist)
+    caplist = (int *)default_caplist;
   for (int i = 0; caplist[i] != -1; i++) {
     printf("adding %d to ambient list\n", caplist[i]);
     set_ambient_cap(caplist[i]);
   }
-  
+
   printf("Ambient forking shell\n");
-  
-  if (execv(argv[index], argv + index))
-    perror("Cannot exec new-program");
+
+  if (execv(argv[index], argv + index)) perror("Cannot exec new-program");
 
   return 0;
 }
