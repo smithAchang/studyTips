@@ -59,7 +59,9 @@ gcc -g -o someProc main.c
 
 ### 持续消除warning
 
-在warning开关全开的情况下，应分析检查产生warning的情况，最好做到零warning。代码中出现warning代表着对编程语言没有掌握的知识，可以通过对于warning的研究学习，增强编程能力。
+在warning开关全开的情况下，应分析检查产生warning的情况，最好做到零warning。
+
+代码中出现warning代表着对编程语言没有掌握的知识，可以通过对于warning的研究学习，增强编程能力。
 
 ### 建议将某些warning转为编译error
 
