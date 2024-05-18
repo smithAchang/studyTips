@@ -12,7 +12,7 @@ V1.06     | 2023-09-09     | 增补字符串安全操作函数`strn*`和`sn*`系
 V1.07     | 2023-11-04     | 增补代码风格的要求；增补enum使用经验、模块全局/静态变量提供结构体封装的编程经验
 V1.08     | 2023-11-25     | 增补void*类型作为通用参数容器的建议
 V1.09     | 2024-04-04     | 增补给定值初始化GNU编译器扩展和`-fsanitize=address`和`-fsanitize=*`等编译选项
-V1.10     | 2024-05-18     | 增补栈空间可变长数组的建议
+V1.10     | 2024-05-18     | 增补栈空间可变长数组的建议;走查后修补格式等
 
 
 
@@ -63,7 +63,7 @@ gcc -g -o someProc main.c
 
 ### 建议将某些warning转为编译error
 
-可以根据工程特点，总结出来一批，影响比较大，而且容易出现问题的warning，直接转化为编译器error选项，以利于用编译工具保证质量。有条件的项目编译工程，可以通过-Werror将全部warning转为编译error。
+可以根据工程特点，总结出来一批，影响比较大，而且容易出现问题的warning，直接转化为编译器error选项，以利于用编译工具保证代码规范和质量。有条件的项目编译工程，可以通过-Werror将全部warning转为编译error。
 
 **正例**
 ```bash
@@ -123,17 +123,18 @@ void f()
 }
 ```
 
-> gcc编译器可以指定--std=gnu11等一些高版本编译标准。临近使用变量特性将使得封装性更好，避免无效的提前干扰，有利于阅读代码
+> + gcc编译器可以指定--std=gnu11等一些高版本编译标准。临近使用变量特性将使得封装性更好，避免临时变量的提前干扰，有利于阅读代码
+> + `Linux`内核未来也要转向`C11`的编译语言标准
 
 ### 建议O2优化标准
 
 编译器优化可以将代码运行性能加速到极致；但为了避免一些负优化，建议使用与Linux内核一致的O2优化级别。
 
-> 优化虽在，我们仍提倡撰写高质量的代码，作为比较好的编译器输入！
+> 工具优化虽在，我们仍提倡撰写高质量的代码，作为比较好的编译器输入，提高编程能力！
 
 #### 适当地方使用register变量
 
- C语言支持寄存器变量，x86-64上又提供更多的寄存器可用，所以在计算校验和等比较密集耗费CPU的场景，对于关键变量建议使用register关键词修饰。
+ C语言支持寄存器变量，`x86-64`上又提供更多的寄存器可用，所以在计算校验和等比较密集耗费CPU的场景，对于关键变量建议使用register关键词修饰。
 
 
 
@@ -144,19 +145,23 @@ void f()
 ### 利用代码风格格式化工具实现统一的代码风格
   业界存在很多种代码风格格式化的工具，它们之间没有好坏之分，只有喜欢不喜欢，习惯不习惯的问题。
 
-  而且，每种代码风格均有所依据，都有其道理，使用多了就习惯了，也能体会其中的好处。
+  而且，每种代码风格均有所依据，都有其道理，使用多了就习惯了，也能体会代码规范之美。
 
   这里的关键是代码风格上的一致和统一！
 
-  > 编码风格使用工具进行格式化，可以避免手工维护的低效和不统一
+  > + 编码风格使用工具进行格式化，可以避免手工维护的低效和不统一
 
-  > 很多开发IDE都提供了与各种代码风格工具的集成能力，例如，uncrustify
+  > + 很多开发IDE都提供了与各种代码风格工具的集成能力，例如，uncrustify
+  
+  ```bash
+  uncrustify -c linux.cfg --no-backup somefile.c
+  ```
 
 #### 源码编辑Tab转为空格
 
-+ 编辑器设定Tab键空格数量为4
++ 编辑器设定Tab键空格数量为4，或更紧凑的布局，设定为2
 + 代码编辑器"设置"支持将Tab固定转为空格
-+ 代码编辑器支持将旧文件中Tab批量转为空格
++ 代码编辑器一般都支持将旧文件中Tab批量转为空格
 
 > 如果使用代码风格格式化工具，此条建议可以自动实现
 
@@ -328,7 +333,7 @@ int f(int* intPtr)
 ```c
 typedef struct tagPerson
 {
-  unsigned char name[MAX_NAME];
+  unsigned char name[MAX_NAME_LEN];
   int age;
 } Person;
 ```
@@ -338,7 +343,7 @@ typedef struct tagPerson
 ```c
 typedef struct
 {
-  unsigned char name[MAX_NAME];
+  unsigned char name[MAX_NAME_LEN];
   int age;
 } Person;
 ```
@@ -390,13 +395,14 @@ enum
 
 ### 避免简单重复代码出现
 
-此条建议看似与前面建议冲突，实则不然。简单重复的代码是代码中最大的坏味道，和体现程序员的懒惰。  
-当某些代码重复出现三次以上时，是你应该考虑用公共组件来代替简单重复的时候了。
+此条建议看似与前面建议冲突，实则不然。简单重复的代码是代码中最大的坏味道，和体现程序员的懒惰，一时快，后面带来无穷无尽的维护麻烦。  
+当某些代码重复出现三次以上时，是你应该考虑用公共组件来代替简单重复的时候了，这时候规律也就自现了。
 
 ### 敢为人先避免破窗效应
 
-破窗效应是指某个地方出现了"坏"的味道后，后面这种坏的情况在自然情况下，没有人愿意改变，只能变得更糟。  
-作为程序员，应该敢于迈出第一步，让代码变得比昨天更好。
+~~破窗效应~~是指某个地方出现了"坏"的味道后，后面这种坏的情况在自然情况下，没有人愿意改变，只能变得更糟。  
+作为程序员，应该敢于迈出第一步，逐步让代码变得比昨天更好。
+如果习惯了这种逐步自举的过程，后面对重构技巧掌握会更精深。
 
 ### 注重重构技巧
 重构代码也是有方法论的，具体可见《重构改善即有代码的设计》。  
@@ -411,8 +417,8 @@ enum
 
 ### 不简明代码的注释等同于一句道歉
 
-对于不简明的代码进行注释，实际上等同于道歉，说明这些代码太复杂了，作者怕后来阅读者不能尽懂，不得不用注释进行特殊说明。  
-可以考虑是否有简明的实现，进行代码重构。
+对于不简明的代码进行注释，实际上等同于道歉！
+说明这些代码太复杂了，作者怕后来阅读者不能尽懂，不得不用注释进行特殊说明；可以考虑是否有简明的实现，进行代码重构。
 
 > 来自网络观点的启发
 
@@ -422,38 +428,6 @@ enum
 
 
 ## 编码技巧
-
-### 可变长数组
-
-**正例**
-```c
-void f(unsigned int len)
-{
-  char szName[len];
-  ...
-}
-```
-
-~~**反例**~~
-```c
-void f1(unsigned int len)
-{
-  char* szName = (char*)malloc(len);
-  ...
-  // 注意需要考虑多分支return
-  free(szName)
-}
-
-#define MAX_NAME_LEN_FOR_ALLCASE ((uint16_t)512)
-void f2()
-{
-  char szName[MAX_NAME_LEN_FOR_ALLCASE];
-  ...
-}
-```
-> + `Arrays of Variable Length`在`ISO C99`中作为语言标准，可以提高编译器的编译标准进行支持
-> + 相比较于栈溢出风险，能够将代码写的更简洁的技术，避免啰嗦，总是值得推荐
-
 
 ### 模块内提供对全局/静态变量的结构体封装
 
@@ -486,6 +460,38 @@ static char s_szName[MAX_NAME_LEN];
 >> 如使用`GCC`编译器，也可以考虑使用`__attribute__((__constructor__))`修饰符，设定模块初始化函数
 
 > 对于**全局变量**同样可以考虑如此实践，仅将结构体封装的全局变量提供出去
+
+### 可变长数组
+
+**正例**
+```c
+void f(unsigned int len)
+{
+  char szName[len];
+  ...
+}
+```
+
+~~**反例**~~
+```c
+void f1(unsigned int len)
+{
+  char* szName = (char*)malloc(len);
+  ...
+  // 注意需要考虑多分支return
+  free(szName)
+}
+
+#define MAX_NAME_LEN_FOR_ALLCASE ((uint16_t)512)
+void f2()
+{
+  // too long for all case
+  char szName[MAX_NAME_LEN_FOR_ALLCASE];
+  ...
+}
+```
+> + `Arrays of Variable Length`在`ISO C99`中作为语言标准，可以提高编译器的编译标准进行支持
+> + 相比较于栈溢出风险，能够将代码写的更简洁的技术，避免啰嗦，总是值得推荐
 
 ### 使用零长度数组作为类TLV结构体成员
 
@@ -585,15 +591,19 @@ base                rd_ptr            wr_ptr                         capacity
 
 **正例**
 ```c
-// default is OK
-static unsigned char s_buffer[512];
-static unsigned char s_bufferFF[512] = {[0 ... (sizeof(s_bufferFF) - 1)] = 0xFF};
+#define SMALL_SIZE ((uint8_t)16)
+#define BIG_SIZE ((uint16_t)512)
+
+// default is OK. Will be alloced at bss segment
+static unsigned char s_buffer[BIG_SIZE];
+// alloced at data segment
+static unsigned char s_bufferFF[SMALL_SIZE] = {[0 ... (sizeof(s_bufferFF) - 1)] = 0xFF};
 
 void f()
 {
   struct A a = {};
-  unsigned char buffer[512] = {};
-  unsigned char bufferFF[512] = {[0 ... (sizeof(bufferFF) - 1)] = 0xFF};
+  unsigned char buffer[BIG_SIZE] = {};
+  unsigned char bufferFF[BIG_SIZE] = {[0 ... (sizeof(bufferFF) - 1)] = 0xFF};
 
   // some code using the above vars
   ...
@@ -606,8 +616,8 @@ void f()
 void f()
 {
   struct A a ;
-  unsigned char buffer[512];
-  unsigned char bufferFF[512];
+  unsigned char buffer[BIG_SIZE];
+  unsigned char bufferFF[BIG_SIZE];
 
   memset(&a, 0, sizeof(a));
   memset(buffer, 0, sizeof(buffer));
@@ -619,7 +629,7 @@ void f()
 ```
 
 > + 空花括号清零简洁、美观、高效
-> + 小块内存清零应避免调用函数的代价。在C23 C语言建议标准中，已作为标准建议替代memset
+> + 小块内存清零应避免调用函数的代价。在`C23 C`语言建议标准中，已作为标准建议替代memset
 > + 空花括号和花括号带零，适应不同的情况；空花括号清零可以应对结构体和结构体内含有结构体成员的复杂结构体
 > + 可以使用GNU编译器扩展的`array range intializer [first ... last] = value`将数组元素清理为特定值，代替[memset](https://gcc.gnu.org/onlinedocs/gcc/Designated-Inits.html)
 
@@ -767,7 +777,8 @@ int f(const char* data)
 }
 ```
 
-> 形式上减少了if语句的嵌套，字面上更体现代码意图
+> + 形式上减少了if语句的嵌套，函数名字字面上更体现代码意图
+> + 宏函数相对于内联函数，可以在需要直接流程返回的时间更适合使用
 
 ### 枚举序列定义最后一个未使用值作为边界
 
@@ -972,7 +983,7 @@ void f(const char* szPara)
 
 #### 使用void指针作为通用参数容器
 
-此使用技巧特别在某些处理间需要某种关联的场合，使用`void*`作为通用参数容器更有利于扩展
+此使用技巧特别在某些处理间需要某种上下文关联的场合，使用`void*`作为通用参数容器更有利于扩展
 
 **正例**
 ```c
@@ -1127,7 +1138,7 @@ extern "C" {
 
 > 此处着重`宏方法`应该与普通方法在同一区域中，因为它的操作对象和普通函数一样为它前面声明的元素
 
-### 稳定API设计技巧利用上下文对象指针和操作函数
+### 稳定库API设计技巧利用上下文对象指针和Getter/Setter操作函数
 
 **正例**
 ```c
@@ -1139,7 +1150,8 @@ extern "C" {
 #endif
 
 // some declarations
-typedef struct tag_T_Context { ... } T_Context;
+struct tag_T_Context;
+typedef struct tag_T_Context T_Context;
 
 T_Context* api_Alloc_Context();
 int api_set_Context_Option(T_Context* ptContext, someType optionPara);
@@ -1147,14 +1159,55 @@ int api_request(T_Context* ptContext, someType optionParas ...);
 int api_responset(T_Context* ptContext, someType optionParas ...);
 int api_setCallback(T_Context* ptContext, someCallbackFunction fn ...);
 
-
 #ifdef  __cplusplus
  }
 #endif
 
 #endif
 ```
-> 这样的设计让上下文对象成为可以保证不同实现间的相互隔离、独立、并发并行，而且不操作具体内存相关的字段，具有二进制布局依赖独立性，可以视作C语言编程领域内对**接口**进行编程。
+
+
+**反例**
+```c
+#ifndef __XX_YY_h
+#define __XX_YY_h
+
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
+// struct declarations
+typedef struct tag_T_Context 
+{ 
+  int field1;
+  int field2;
+  ...
+} T_Context;
+
+#ifdef  __cplusplus
+ }
+#endif
+
+// some.c
+
+void f()
+{
+   
+   T_Context   tContext = {};
+   // without Setter
+   tSetter.field1 = 1;
+
+   // without Getter
+   printf("%d\n", tSetter.field1);
+   ...
+}
+
+#endif
+
+
+> + 这样的设计让上下文对象成为可以保证不同实现间的相互隔离、独立、并发并行，
+> + 不操作具体内存相关的字段，具有二进制布局依赖独立性，可以视作C语言编程领域内对**接口**进行编程
+> + 特别适合于库API的场景
 
 
 ## 日志规范
@@ -1350,7 +1403,8 @@ static void __attribute__((__constructor__)) f(...)
 ## 应该小步提交并提交前走查代码
 
 + 程序员应学会应版本化管理思想，每一步一个小的变更，逐渐螺旋迭代
-+ 将提交代码限定在一个小的变化中，也有利于提交前进行代码走查；原子小步提交代码的工作方法，也有利于后期使用版本管理软件进行合并、回退变更、代码走查等活动
++ 将提交代码限定在一个小的变化中，也有利于提交前进行代码走查
++ + 原子小步提交代码的工作方法，也有利于后期使用版本管理软件进行合并、回退变更、代码走查等活动
 + 避免代码意外丢失或损坏，也应该及时提交版本服务器，而非累积大的变化提交
 
 > 无论Git或SVN均支持本地提交，某些不适合提交正规版本服务器的变化，可以用本地版本库进行变更管理 
@@ -1365,13 +1419,13 @@ static void __attribute__((__constructor__)) f(...)
 
 ## 尽可能用自动化测试
 
-对于可以自动化测试保证接口或流程正确的场景，应该尽可能地形成自动化测试用例，避免重复劳作。 
+对于稳定、缺少变化的`API`，必须要考虑用自动化测试的方法，来保证接口或流程正确的场景，避免重复劳作。 
 
 > 尽量借助于测试框架进行测试代码开发，以利于代码的规范和复用
 
 ## Linux QT Creator GUI调试
 
-在Linux图形化环境中，可以使用开源QTCreator IDE编码工具，依赖工程的Makefile文件，就可以建立起来调试环境。
+在`Linux`图形化环境中，可以使用开源`QTCreator IDE`编码工具，依赖工程的Makefile文件，就可以建立起来调试环境。
 
 
 
@@ -1412,12 +1466,12 @@ thread apply all bt
 ## 对于调试程序定制化初始化设定
 
 ```bash
-gdb --command=self.gdb -p $(pidof selfApp)
+gdb --command=selfApp.gdb -p $(pidof selfApp)
 ```
 
 > 通过--command参数项，设定被调试程序的自动化执行gdb指令
 
-### self.gdb 定制样例
+### selfApp.gdb 定制样例
 
 ```bash
 cd /path/to/proc
@@ -1493,9 +1547,9 @@ valgrind --leak-check=full --track-origins=yes ./someProc [para...]
 
 > 优化通常体现为深度的思考，费时、费力，所以，对在合理模型下暴露的低效进行优化，才是必要的。不然，容易陷入~~过度自嗨的迷失~~
 
-## perf程序性能分析工具
+## perf分析程序性能分析工具
 
-通过perf 工具可以对程序运行期的动态行为进行记录，通过量化的方式发现可以优化的代码位置，特别推荐!
+通过`perf`工具可以对程序运行期的动态行为进行记录，通过量化的方式发现可以优化的代码位置，特别推荐!
 
 
 ### perf record
