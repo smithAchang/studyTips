@@ -58,11 +58,14 @@ OBJS := $(SRCS:.c=.o)
 $(BIN): $(OBJS)
 $(OBJS): clean
 
+<<<<<<< HEAD
+=======
 # 建议使用自动变量
 $(BIN):
 	$(CC) $^ -o $@ $(LDFLAGS)
 	@echo "Elapsed time: $(shell expr $(NOW_TIME) - $(CONST_START_TIME)) seconds"
 
+>>>>>>> 97b17e74cd02af3456c37bcb8f9bb29c7245df7c
 # 静态模糊匹配规则
 $(OBJS): %.o: %.c
 	@echo "Begin compile $< ..."
