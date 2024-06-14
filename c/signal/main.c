@@ -1,9 +1,10 @@
+#include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
 
 void custom_signal_handler(int signum) {
   // 自定义处理逻辑...
-  printf("Received signal %d, executing custom logic...\n", signum);
+  printf("Received signal %d, executing custom logic it simply restores the default signal process ...\n", signum);
 
   // 调用默认信号处理程序前，可能需要恢复信号处理函数为默认值
   struct sigaction sa;
@@ -13,7 +14,7 @@ void custom_signal_handler(int signum) {
 
   sigaction(signum, &sa, NULL);                               // 更新信号处理方式
 
-  // 发送信号给自己，让内核执行默认操作
+  printf("Send signal %d again, to execute default logic...\n", signum);
   kill(getpid(), signum);
 }
 
