@@ -13,6 +13,7 @@ V1.07     | 2023-11-04     | 增补代码风格的要求；增补enum使用经�
 V1.08     | 2023-11-25     | 增补void*类型作为通用参数容器的建议
 V1.09     | 2024-04-04     | 增补数组给定值初始化GNU编译器扩展和`-fsanitize=address`和`-fsanitize=*`等编译选项
 V1.10     | 2024-05-18     | 增补栈空间可变长数组的建议;走查后修补格式等
+V1.11     | 2024-07-17     | 增补对枚举成员直接赋值的建议；增补避免指定字节对齐的建议
 
 
 
@@ -360,8 +361,8 @@ typedef struct
 ```c
 typedef enum WEEK
 {
-  SUN,
-  MON,
+  SUN = 1,
+  MON = 2,
   ...
 } WEEK;
 ```
@@ -379,6 +380,7 @@ enum
 
 > + 枚举代表某种概念集合，相比较于独立的宏定义，通常更适合适合定义常量序列、限定合法值等相互之间有关联的场合
 > + 枚举声明的名字，不影响枚举值类似宏定义的直接使用方式；但能够在阅读代码时更方便了解其含义，应避免使用无名枚举值
+> + 直接对于枚举成员赋值，特别是大量错误码或返回值声明场景，以利于能够在日志中分析对应情况
 > + 编译器对于枚举值友好，作为函数参数，将在编译器期能够校验入参的合法性
 > + 调试对于枚举值友好，能够对于值直接显示更有意义的声明名称，避免增加代码翻译
 
@@ -431,6 +433,68 @@ enum
 
 
 ## 编码技巧
+
+### 避免指定字节对齐编译指令
+
+**正例**
+```c
+// c header file
+typedef struct tagSome_t 
+{
+   char field1;
+   short field3;
+   int field4;
+   double field2;
+   ...;
+} Some_t;
+
+```
+
+~~**反例**~~
+```c
+#pragma pack(push, 1)
+
+typedef struct tagSome_t 
+{
+   char field1;
+   double field2;
+   short field3;
+   int field4;
+   ...;
+} Some_t;
+
+#pragma pack(pop)
+
+// Or
+
+typedef struct tagSome_t 
+{
+   char field1;
+   double field2;
+   short field3;
+   int field4;
+   ...;
+} __attribute__((packed)) Some_t;
+
+```
+
+#### 应对方法
+> + 编译默认对齐方式已足够好，相当于**自动**处理结构体成员的字节对齐问题，但可能有结构体膨胀风险
+> + 混合、嵌套不同字节对齐的结构体，或扩展结构体新成员，在不注意间会引发不必要访存性能损失。对大规模开发提出了更高要求
+
+> + 除了网络协议，或外部接口要求的字节对齐硬性要求，其它场景尽量避免指定不同的字节对齐方式
+> + 在大量创建膨胀结构体的场景，在保证结构体成员语义相关和内聚的前提下，可通过调整成员声明顺序，来消除不合理的声明顺序，引发的结构体内存膨胀问题
+
+
+#### 计算2的幂次内存长度的快速方法
+```c
+#define ROUND_UP4(n) (((n) + 3) & ~3)
+
+#define ROUND_UP8(n) (((n) + 7) & ~7)
+
+#define ROUND_UP(n) (((n) + (sizeof(void*) - 1)) & ~(sizeof(void*) - 1))
+
+```
 
 ### 模块内提供对全局/静态变量的结构体封装
 
@@ -791,7 +855,7 @@ int f(const char* data)
 typedef enum STUDENT_TYPE
 {
   BOY = 0,
-  GIRL,
+  GIRL= 1,
   STUDENT_TYPE_END 
 } STUDENT_TYPE;
 
