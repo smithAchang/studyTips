@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>270</x>
+      <y>300</y>
+      <w>590</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>valign=top
+halign=left
+**kernel**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>320</x>
+      <y>100</y>
+      <w>190</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>valign=top
+halign=left
+**gdb**</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLObject</id>
+    <coordinates>
+      <x>620</x>
+      <y>100</y>
+      <w>190</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>valign=top
+halign=left
+**hello-world**
+_(non-sigwait or non-signalfd)_</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>340</x>
+      <y>240</y>
+      <w>400</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-
+ptrace as precondition
+fg=red</panel_attributes>
+    <additional_attributes>380.0;10.0;380.0;130.0;10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>240</y>
+      <w>340</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=-&gt;
+signal</panel_attributes>
+    <additional_attributes>320.0;10.0;320.0;90.0;10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+</diagram>
