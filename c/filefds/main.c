@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <dirent.h>
 #include <unistd.h>
+#include <fcntl.h>
 #include <sys/resource.h>
+#include <errno.h>
 
 int count_open_files(pid_t pid) {
     char path[256];
@@ -43,12 +45,41 @@ int count_open_files(pid_t pid) {
     return count;
 }
 
+/*可避免打开新的句柄*/
+int count_open_files_by_fcntl(int* maxfds)
+{
+    int count = 0;
+    struct rlimit rl;
+    if(getrlimit(RLIMIT_NOFILE, &rl) == -1)
+    {
+        if(maxfds != NULL)
+        {
+            *maxfds = 0xFFFFF;
+        }
+        return 0xFFFFF;
+    }
+    
+    for(int fd = 0; fd < (int)rl.rlim_cur; ++fd)
+    {
+        if(fcntl(fd, F_GETFD) != -1 || errno != EBADF)
+        {
+          ++count;
+        }
+    }
+
+    if(maxfds != NULL)
+    {
+        *maxfds = (int)rl.rlim_cur;
+    }
+    return count;
+}
+
 int main() {
     pid_t pid = getpid(); // 获取当前进程ID
     int fd_count = count_open_files(pid);
     
     if (fd_count >= 0) {
-        printf("Process %d has %d file descriptors open\n", pid, fd_count);
+        printf("Process %d has %d file stated by proc dir, %d files stated by fcntl descriptors open\n", pid, fd_count, count_open_files_by_fcntl());
     }
     
     return 0;
