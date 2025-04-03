@@ -14,6 +14,7 @@ V1.08     | 2023-11-25     | 增补void*类型作为通用参数容器的建议
 V1.09     | 2024-04-04     | 增补数组给定值初始化GNU编译器扩展和`-fsanitize=address`和`-fsanitize=*`等编译选项
 V1.10     | 2024-05-18     | 增补栈空间可变长数组的建议;走查后修补格式等
 V1.11     | 2024-07-17     | 增补对枚举成员直接赋值的建议；增补避免指定字节对齐的建议
+V1.12     | 2025-04-02     | 增补健壮性处理经验:信号安全和对接口API返回值的异常处理；补充，优化查看汇编指令的必要性
 
 
 
@@ -1602,6 +1603,69 @@ valgrind --leak-check=full --track-origins=yes ./someProc [para...]
 
 
 
+# 健壮性经验
+
+## 考虑外部接口输入不可能的场景
+ 外部接口输入数据，在对端伙伴出错的情况下，很有可能携带异常值，不能认为不会出现，而不进行预防性处理。
+ 就像`1+1`在算错的时间等于`3`一样，应考虑异常情况的`完备性`处理。
+
++ 对于外部接口，应避免`未定义行为`，对于值域应该进行严格的校验
++ 建议在打印高级别日志的情况下，终结掉外部输入`会话`，以利于重建`会话`，和让隐患更加明显
+
+> 例如，对于`sctp`用户态协议栈，如果对端伙伴输入有序报文请求，但在传输序号`TSN`有序的情况下，流序号`SSN`出现不能准确匹配期望的情况下，应视为异常
+
+## 信号异常
+ 在`c++`通常有是否异常安全的考量，对于`c`语言程序而言，信号异常安全考虑也是必须的。特别地，在`Linux`系统中，对于支持程序优雅退出，非常必须的`TERM`信号，在程序有自身内态，需要持久化动作时，必须进行自定义处理。
+
+### 接口返回值的规范化处理
+
++ 对于接口api具有指示正常和异常的情况，必须对于返回值进行异常处理
+
+*正例**
+```c
+// 
+void* someThreadProc(void* arg)
+{
+  while(!g_bExitFlag)
+  {
+    int lefted = sleep(interval);
+
+    // consider the safety for signal
+    if(g_bExitFlag)
+    {
+      break;
+    }
+
+    // another choice
+    if(lefted > 0)
+    {
+      continue;
+    }
+
+    someAction(...);
+  }
+  return NULL;
+}
+```
+
+
+~~**反例**~~
+```c
+//  sleep 'system api' maybe be interupted by 'TERM' signal when exiting
+void* someThreadProc(void* arg)
+{
+  while(!g_bExitFlag)
+  {
+    sleep(interval);
+    // ignoring the return value or signal has a risk of processing some service when exiting
+    someAction(...);
+  }
+  return NULL;
+}
+```
+
+
+
 # 调优
 
 ## 总则
@@ -1612,7 +1676,14 @@ valgrind --leak-check=full --track-origins=yes ./someProc [para...]
 
 > 通过对市场需求、部署硬件环境等各方面分析后，合理确定性能测试模型，然后在此性能模型下，进行压力性能测试，并通过专业工具定量分析程序性能损失区域
 
-> 优化通常体现为深度的思考，费时、费力，所以，对在合理模型下暴露的低效进行优化，才是必要的。不然，容易陷入~~过度自嗨的迷失~~
+> 优化通常体现为深度的思考，费时、费力，所以，对在合理模型下暴露出来的低效进行优化，才是必要的。不然，容易陷入~~过度自嗨的迷失~~
+> 优化类似果树上的果实，越到后期，很少有低矮的、全局性的优化；所谓~~优化~~，很有可能仅是针对特定场景，特定应用的**偏化**，尽量用配置策略进行解决
+
+## 查看汇编指令分析优化效果
++ 建议必要时查看汇编指令，以确定优化的效果
++ 优化在`图灵机`的机器结构底层看来，必须是更少的指令、更少的内存读写、更局部化的内存访问
+
+> [Linux为什么那么快？SCTP协议栈为减少一条指令的优化提交](https://github.com/torvalds/linux/commit/182691d0998400f35ad304718024e60feaa864aa#diff-e977da7d91d5b6af97d8f596daf2393c07f078e050c7389c6e2fafa9e9d2e4d4R313)
 
 ## perf分析程序性能分析工具
 
