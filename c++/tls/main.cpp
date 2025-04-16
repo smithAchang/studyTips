@@ -26,6 +26,9 @@ void threadFunction(const std::string& threadName) {
     std::cout << std::endl;
     std::cout << "Thread: " << threadName << ", threadLocalVar: " << obj.getThreadLocalVar() << std::endl;
     std::cout << "Thread: " << threadName << ", threadLocalPointer: " << obj.threadLocalPointer << std::endl;
+    
+    obj.threadLocalVar = 12345;
+    obj.threadLocalPointer = (void*)54321;
 }
 
 int main() {

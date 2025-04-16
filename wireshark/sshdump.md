@@ -45,7 +45,7 @@ ssh root@192.168.8.146 'tcpdump -i enp0s3 ! host 192.168.9.37 -s 0 -l -w -' | .
 配置用户名和密码，建议通过非对称加密的公钥和私钥配置，进行免密登录
 
 ### ssh免密登录配置
-通过较为自动化`ssh-copy-id`命令进行操作，减少手工出错概率，见链接
+通过较为自动化`ssh-copy-id`命令进行操作，减少手工出错概率，见链接[最简SSH免密配置方法](https://blog.csdn.net/jkler_doyourself/article/details/135879408)
 
 ## Capture抓包配置
 主要配置抓包网口，可以使用**any**关键词代表所有网卡，包括`lo`环回接口
