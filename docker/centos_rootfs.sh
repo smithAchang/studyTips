@@ -28,7 +28,7 @@ baseurl=file://$iso_mount_dir
 enabled=1
 gpgcheck=0" > /etc/yum.repos.d/$os_name-local-iso.repo
 echo "You must keep the yum tool in host machine compatible for target os"
-sudo yum install --releasever=$releasever --disablerepo=\* --enablerepo=$os_name-local-iso --installroot=$image_rootfs_dir centos-release rpm yum-utils 
+sudo yum install --releasever=$releasever --disablerepo=\* --enablerepo=$os_name-local-iso --installroot=$image_rootfs_dir rootfiles centos-release rpm yum-utils 
 
 if [ $? -ne 0 ]; then
   echo "Some error occured when installing the bootstrap components, please check!"
