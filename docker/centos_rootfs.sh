@@ -28,7 +28,7 @@ baseurl=file://$iso_mount_dir
 enabled=1
 gpgcheck=0" > /etc/yum.repos.d/$os_name-local-iso.repo
 echo "You must keep the yum tool in host machine compatible for target os"
-sudo yum install --releasever=$releasever --disablerepo=\* --enablerepo=$os_name-local-iso --installroot=$image_rootfs_dir rootfiles centos-release rpm yum-utils 
+sudo yum install --releasever=7 --disablerepo=\* --enablerepo=$os_name-local-iso --installroot=$image_rootfs_dir rootfiles centos-release rpm yum-utils vim-minimal
 
 if [ $? -ne 0 ]; then
   echo "Some error occured when installing the bootstrap components, please check!"
@@ -44,7 +44,7 @@ sudo chroot $image_rootfs_dir /bin/bash -c "echo LANG=\"en_US.UTF-8\" > /etc/loc
 
 # 清理部分文件
 sudo chroot $image_rootfs_dir /bin/bash -c "localedef --list-archive | grep -v -i "en_US" | xargs localedef --delete-from-archive && mv /usr/lib/locale/locale-archive /usr/lib/locale/locale-archive.tmpl && build-locale-archive"
-sudo chroot $image_rootfs_dir /bin/bash -c "yum clean all"
+sudo chroot $image_rootfs_dir /bin/bash -c "yum clean all; rm -rf /var/cache/yum /etc/yum.repos.d/$os_name-local-iso.repo"
 
 # 打包 rootfs
 cd $image_rootfs_dir
