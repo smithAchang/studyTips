@@ -21,6 +21,7 @@ bash script.
 %prep
 cat > %{name}.sh << EOF
 #!/bin/bash
+ROOT_PATH=/usr
 echo "Hello World!"
 EOF
 
@@ -42,6 +43,8 @@ echo "Post step after installed"
 #env
 echo "enviroment 'RPM_INSTALL_PREFIX' var value:$RPM_INSTALL_PREFIX"
 cat $RPM_INSTALL_PREFIX/bin/%{name}.sh
+ROOT_PATH_REPLACE=/usr/local
+sed -ni s/^ROOT_PATH=.*/ROOT_PATH=${ROOT_PATH_REPLACE//\//\\/}/ $RPM_INSTALL_PREFIX/bin/%{name}.sh
 
 %changelog
 * Tue May 31 2025 chang.yunlei <changyunlei@fedoraproject.org> - 0.1-1
