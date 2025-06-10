@@ -65,7 +65,7 @@ cd %{objdir}
 make install DESTDIR=%{buildroot}%{_prefix}/root
 install -m 755 enable %{buildroot}%{_prefix}/enable
 ln -sf gcc %{buildroot}%{_prefix}/root/usr/bin/cc
-#find %{buildroot}/root -size +200M | xargs strip
+find %{buildroot}%{_prefix}/root -size +200M | xargs strip
 
 %files
 %{_prefix}/enable
