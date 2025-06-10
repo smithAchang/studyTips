@@ -23,6 +23,9 @@ You can use higher gcc version in the same host.
 #%global __arch_install_post %{nil}
 #%global __os_install_post %{nil}
 
+# Reset the global var 
+%global _prefix %{prefix}
+
 # For Building env
 %prep
 %setup -q -n gcc-%{version}
