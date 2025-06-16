@@ -1,0 +1,19 @@
+FROM higher-gcc-build:latest AS buildGCC
+
+WORKDIR /home/higher-gcc/build
+RUN make install DESTDIR=/opt/gcc && \
+    ln -s gcc /opt/gcc/usr/bin/cc && \
+    find /opt/gcc/usr -size +200M | xargs strip 
+
+
+FROM my-linux-dist-baseimage-from-iso:latest
+
+# Reduce unnecessary intermediate layer
+LABEL com.example.image.higher-gcc.author="someone" \
+      com.example.image.higher-gcc.version="1.0" \
+      com.example.image.higher-gcc.desc="higher gcc based on some linux dist"
+      
+COPY --from=buildGCC /opt/gcc /
+
+# Provide default interactive shell
+ENTRYPOINT ["/bin/bash"]

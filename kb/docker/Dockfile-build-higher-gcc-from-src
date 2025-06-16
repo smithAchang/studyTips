@@ -1,0 +1,17 @@
+FROM gcc-dist-with-tool-chain-set:latest
+
+WORKDIR /home/higher-gcc
+
+# You must provide the dependent 'gmp'、'mpfr' component and e.g
+ADD gcc-higher-gcc.tar.gz /home/higher-gcc
+
+# Reduce unnecessary intermediate layer
+LABEL com.example.image.higher-gcc.author="someone" \
+      com.example.image.higher-gcc.version="1.0"
+      
+RUN  mkdir -p build && cd build && \
+     ../gcc-higher-gcc/configure --host=x86_64-pc-linux-gnu --prefix=/usr --disable-multilib --enable-languages=c,c++ && \
+     make -j8
+
+# Provide default interactive shell
+ENTRYPOINT ["/bin/bash"]

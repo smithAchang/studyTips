@@ -1,0 +1,12 @@
+FROM my-linux-dist-baseimage-from-iso:latest
+
+# Reduce unnecessary intermediate layer
+LABEL com.example.image.dist.gcc.author="someone" \
+      com.example.image.dist.gcc.version="1.0"
+
+# With tool chain set
+RUN yum install -y file grep tar texinfo gawk make gcc gcc-c++ && \
+    yum clean all
+
+# Provide default interactive shell
+ENTRYPOINT ["/bin/bash"]
